@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "386768511142",
+    "project_id": "who-is-washing-the-dishes",
+    "storage_bucket": "who-is-washing-the-dishes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386768511142:android:8ddce94c3061b60ffc1467",
+        "android_client_info": {
+          "package_name": "com.example.whos_doing_the_dishes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386768511142-65pnfp59mfbsvof7cr191tpbflqspmga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0fLN7C4eLMoqbw_gsHL8wAUbTrabGcYQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386768511142-65pnfp59mfbsvof7cr191tpbflqspmga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
