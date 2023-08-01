@@ -15,17 +15,18 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   final user = FirebaseAuth.instance.currentUser!;
-
   List<String> docIDs = [];
 
   //get docs
   Future<List<String>> getAssignedDocIds() async {
   final assignedDocs = await FirebaseFirestore.instance
       .collection('chores')
-      .where('assignedTo', isEqualTo: user.uid)
+      .where('assignedTo', isEqualTo: user.email)
        // Filter based on assignedTo field
       .get();
-      print(user);
+  print(user.email);
+      
+      
 
   return assignedDocs.docs.map((doc) => doc.id).toList();
 }
