@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../data/get_chores_by-user.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -11,75 +14,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  final List<Map<String, dynamic>> fetchedData = [
-    {
-      'title': 'Item 1',
-      'subtitle': 'Subtitle 1',
-      'icon': Icons.favorite,
-    },
-    {
-      'title': 'Item 2',
-      'subtitle': 'Subtitle 2',
-      'icon': Icons.star,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-    {
-      'title': 'Item 3',
-      'subtitle': 'Subtitle 3',
-      'icon': Icons.bookmark,
-    },
-  ];
-
   final user = FirebaseAuth.instance.currentUser!;
+
+  List<String> docIDs = [];
+
+  //get docs
+  Future getDocId() async {
+    await FirebaseFirestore.instance
+        .collection('chores')
+        .get()
+        .then((snapshot) => snapshot.docs.forEach((document) {
+              docIDs.add(document.reference.id);
+            }));
+  }
 
   void signUserOut() {
     FirebaseAuth.instance.signOut();
@@ -133,41 +80,38 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: fetchedData.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0xFFB6C6D4),
-                          spreadRadius: -8,
-                          blurRadius: 10.0,
-                          offset: Offset(4, 4),
-                        ),
-                        BoxShadow(
-                          color: Color.fromRGBO(255, 255, 255, 0.5),
-                          blurRadius: 10,
-                          offset: Offset(-3, -4),
-                        )
-                      ],
-                    ),
-                    child: ListTile(
-                      leading: Icon(fetchedData[index]['icon']),
-                      title: Text(fetchedData[index]['title']),
-                      subtitle: Text(fetchedData[index]['subtitle']),
-                      onTap: () {
-                        // Add onTap functionality if needed
-                        print('Tapped item: ${fetchedData[index]['title']}');
-                      },
-                    ),
-                  );
-                },
-              ),
-            )
+                child: FutureBuilder(
+                    future: getDocId(),
+                    builder: (context, snapshot) {
+                      return ListView.builder(
+                        itemCount: docIDs.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0xFFB6C6D4),
+                                  spreadRadius: -8,
+                                  blurRadius: 10.0,
+                                  offset: Offset(4, 4),
+                                ),
+                                BoxShadow(
+                                  color: Color.fromRGBO(255, 255, 255, 0.5),
+                                  blurRadius: 10,
+                                  offset: Offset(-3, -4),
+                                )
+                              ],
+                            ),
+                            child: ListTile(
+                              title: GetChores(documentId: docIDs[index]),
+                            ),
+                          );
+                        },
+                      );
+                    }))
           ],
         ),
       ),
