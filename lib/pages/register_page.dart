@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/services/auth_service.dart';
@@ -18,6 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final usernameController = TextEditingController();
 
 //user sign in method
   void signUserUp() async {
@@ -37,6 +39,10 @@ class _RegisterPageState extends State<RegisterPage> {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
+      );
+      addUserDetails(
+        usernameController.text.trim(),
+        emailController.text.trim(),
       );
       // ignore: use_build_context_synchronously
       Navigator.pop(context);
@@ -70,6 +76,12 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  Future addUserDetails(String name, String email) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'name': name,
+      'email': email,
+    });
+  }
   
 
   @override
@@ -108,6 +120,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: confirmPasswordController,
                 hintText: 'Confirm Password',
                 obscureText: true,
+              ),
+              const SizedBox(height: 25),
+              MyTextField(
+                controller: usernameController,
+                hintText: 'Username',
+                obscureText: false,
               ),
               const SizedBox(height: 25),
               MyButton(
