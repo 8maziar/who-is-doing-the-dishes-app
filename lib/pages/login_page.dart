@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:whos_doing_the_dishes/services/auth_service.dart';
 
 import '../components/mybutton.dart';
 import '../components/mytextfield.dart';
@@ -7,7 +8,7 @@ import '../components/squaretile.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
-  LoginPage({super.key, required this.onTap});
+  const LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -37,12 +38,12 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text,
       );
       
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
      //show err
      showErrorMessage(e.code);
     }
-    Navigator.pop(context);
     //stop the circle
   }
 
@@ -69,23 +70,31 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 196, 196, 196),
+      backgroundColor: Color.fromARGB(255, 235, 196, 0),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
-              const SquareTile(imagePath: 'lib/images/logo.png'),
-              const SizedBox(height: 50),
+              const SizedBox(height: 10),
+              const Text('Whos doing',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.bold
+              ),),
+              const SizedBox(height: 10),
+              Image.asset('lib/images/logo.png'),
+              const SizedBox(height: 10),
               const Text(
-                'Welcome',
+                'The Dishes!',
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Color.fromARGB(255, 27, 26, 26),
                   fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 10),
               MyTextField(
                 controller: emailController,
                 hintText: 'Email',
@@ -105,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       'Forgot Password?',
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: Color.fromARGB(255, 11, 11, 11)),
                     ),
                   ],
                 ),
@@ -142,17 +151,19 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 50),
-              const Row(
+              const SizedBox(height: 25),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SquareTile(imagePath: 'lib/images/pngwing.com.png'),
+                  SquareTile(
+                    onTap: () => AuthService().signInWithGoogle(),
+                    imagePath: 'lib/images/pngwing.com.png'),
                   
                   
                 ],
               ),
               const SizedBox(
-                height: 50,
+                height: 25,
               ),
                Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: const Text(
                       'Register now',
                       style: TextStyle(
-                          color: Color.fromARGB(255, 14, 69, 197),
+                          color: Color.fromARGB(255, 157, 14, 197),
                           fontWeight: FontWeight.bold),
                     ),
                   )
