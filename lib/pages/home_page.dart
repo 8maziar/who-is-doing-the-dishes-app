@@ -21,8 +21,26 @@ class HomePage extends StatelessWidget {
             )
         ],
       ),
-      body: Center(child: Text('LOGGED IN AS: ${user.email!}',
-      )),
+      body: const Padding(
+        padding: EdgeInsets.all(40.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(Icons.menu_book_outlined,
+                  size: 50,),
+                  Text("Homepage",
+                  style: TextStyle(fontSize: 20,
+                  fontWeight: FontWeight.bold)),
+                Icon(Icons.menu_book_outlined,
+                  size: 50,),
+                ],
+              ),
+            ],
+        ),
+      )
     );
+      
   }
 }
