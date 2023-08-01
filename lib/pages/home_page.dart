@@ -19,14 +19,16 @@ class _HomePageState extends State<HomePage> {
   List<String> docIDs = [];
 
   //get docs
-  Future getDocId() async {
-    await FirebaseFirestore.instance
-        .collection('chores')
-        .get()
-        .then((snapshot) => snapshot.docs.forEach((document) {
-              docIDs.add(document.reference.id);
-            }));
-  }
+  Future<List<String>> getAssignedDocIds() async {
+  final assignedDocs = await FirebaseFirestore.instance
+      .collection('chores')
+      .where('assignedTo', isEqualTo: user.uid)
+       // Filter based on assignedTo field
+      .get();
+      print(user);
+
+  return assignedDocs.docs.map((doc) => doc.id).toList();
+}
 
   void signUserOut() {
     FirebaseAuth.instance.signOut();
@@ -80,38 +82,45 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             ),
             Expanded(
-                child: FutureBuilder(
-                    future: getDocId(),
-                    builder: (context, snapshot) {
-                      return ListView.builder(
-                        itemCount: docIDs.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0xFFB6C6D4),
-                                  spreadRadius: -8,
-                                  blurRadius: 10.0,
-                                  offset: Offset(4, 4),
-                                ),
-                                BoxShadow(
-                                  color: Color.fromRGBO(255, 255, 255, 0.5),
-                                  blurRadius: 10,
-                                  offset: Offset(-3, -4),
-                                )
-                              ],
-                            ),
-                            child: ListTile(
-                              title: GetChores(documentId: docIDs[index]),
-                            ),
-                          );
-                        },
-                      );
-                    }))
+  child: FutureBuilder<List<String>>(
+    future: getAssignedDocIds(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.done) {
+        final assignedDocIDs = snapshot.data ?? [];
+        return ListView.builder(
+          itemCount: assignedDocIDs.length,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0xFFB6C6D4),
+                    spreadRadius: -8,
+                    blurRadius: 10.0,
+                    offset: Offset(4, 4),
+                  ),
+                  BoxShadow(
+                    color: Color.fromRGBO(255, 255, 255, 0.5),
+                    blurRadius: 10,
+                    offset: Offset(-3, -4),
+                  )
+                ],
+              ),
+              child: ListTile(
+                title: GetChores(documentId: assignedDocIDs[index]),
+              ),
+            );
+          },
+        );
+      } else {
+        return Center(child: CircularProgressIndicator());
+      }
+    },
+  ),
+)
           ],
         ),
       ),
