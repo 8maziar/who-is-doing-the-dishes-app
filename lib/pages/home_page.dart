@@ -93,7 +93,8 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) {
-                                return taskPage(data: assignedDocIDs[index]);
+                                return taskPage(
+                                    documentId: assignedDocIDs[index]);
                               },
                             ));
                           },
