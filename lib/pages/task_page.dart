@@ -1,27 +1,51 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:whos_doing_the_dishes/data/get_chores_by-user.dart';
 
 class taskPage extends StatelessWidget {
-  final String data;
-  const taskPage({required this.data, Key? key}) : super(key: key);
+  final String documentId;
+  const taskPage({required this.documentId, Key? key}) : super(key: key);
 
-
+  Future<DocumentSnapshot<Map<String, dynamic>>> getChoreData() async {
+    return FirebaseFirestore.instance
+        .collection('chores')
+        .doc(documentId)
+        .get();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('single task'),
+        title: Text('Task Details'),
       ),
-      body: GestureDetector(
-        onTap: () {
-          print(data);
-        },
-        child: Center(
-          child:
-              Text('gugjguj'), // Displaying the data that was passed as a prop
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+          future: getChoreData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                final choreData = snapshot.data!.data();
+                if (choreData != null) {
+                  // Display the chore data here
+                  return ListView.builder(
+                    itemCount: choreData.length,
+                    itemBuilder: (context, index) {
+                      final key = choreData.keys.elementAt(index);
+                      final value = choreData[key];
+                      return ListTile(
+                        title: Text('$key: $value'),
+                      );
+                    },
+                  );
+                }
+              }
+              // Handle the case when data is missing or null
+              return Center(child: Text('No data found'));
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
         ),
       ),
     );
