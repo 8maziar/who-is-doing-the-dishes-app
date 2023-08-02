@@ -17,6 +17,7 @@ class taskPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Task Details'),
+        backgroundColor: Color.fromARGB(255, 237, 206, 31),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -28,25 +29,54 @@ class taskPage extends StatelessWidget {
                 final choreData = snapshot.data!.data();
                 if (choreData != null) {
                   // Display the chore data here
-                  return ListView.builder(
-                    itemCount: choreData.length,
-                    itemBuilder: (context, index) {
-                      final key = choreData.keys.elementAt(index);
-                      final value = choreData[key];
-                      return ListTile(
-                        title: Text('$key: $value'),
-                      );
-                    },
+                  return SingleChildScrollView(
+                    child: Card(
+                      elevation: 4.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: choreData.entries.map((entry) {
+                            final key = entry.key;
+                            final value = entry.value;
+                            return ListTile(
+                              title: Text(
+                                '$key:',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                '$value',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              trailing: IconButton(
+                                icon: Icon(Icons.edit),
+                                onPressed: () {
+                                  print('edit');
+                                },
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
                   );
                 }
               }
-              // Handle the case when data is missing or null
               return Center(child: Text('No data found'));
             } else {
               return Center(child: CircularProgressIndicator());
             }
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('uvhrf');
+        },
+        backgroundColor: Color.fromARGB(255, 237, 206, 31),
+        child: Icon(Icons.check),
       ),
     );
   }
