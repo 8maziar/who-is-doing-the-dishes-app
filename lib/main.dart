@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/pages/authpage.dart';
+import 'package:whos_doing_the_dishes/pages/createNewChore.dart';
 import 'firebase_options.dart';
 
 
