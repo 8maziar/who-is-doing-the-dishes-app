@@ -54,7 +54,6 @@ class _RegisterPageState extends State<RegisterPage> {
       //show err
       showErrorMessage(e.code);
     }
-
     //stop the circle
   }
 

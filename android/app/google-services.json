@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "386768511142-65pnfp59mfbsvof7cr191tpbflqspmga.apps.googleusercontent.com",
+          "client_id": "386768511142-vr6gbqqt8fse97lqeif8lkmfjk7mht5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.whos_doing_the_dishes",
+            "certificate_hash": "f0d81dc43145377f665ac89f58b90f5878931805"
+          }
+        },
+        {
+          "client_id": "386768511142-ijq8fb93v9odtimlvh1vadvp2iech83j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +37,13 @@
             {
               "client_id": "386768511142-65pnfp59mfbsvof7cr191tpbflqspmga.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "386768511142-ivpg7jug22cvdev919ufun47kifpbqiq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.whosDoingTheDishes"
+              }
             }
           ]
         }
