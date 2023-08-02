@@ -12,20 +12,20 @@ class GetChores extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
 
     // Get the collection reference
-    CollectionReference chores = FirebaseFirestore.instance.collection('chores');
+    CollectionReference chores =
+        FirebaseFirestore.instance.collection('chores');
 
     return FutureBuilder<DocumentSnapshot>(
       future: chores.doc(documentId).get(),
       builder: ((context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic>? data = snapshot.data?.data() as Map<String, dynamic>?;
-          
+          Map<String, dynamic>? data =
+              snapshot.data?.data() as Map<String, dynamic>?;
 
           // Check if the 'assignedTo' field matches the current user's UID
           if (data!['assignedTo'] == user!.email) {
-           
-            return Text('Task: ${data['title']}');
-          // If not assigned to the current user, return an empty container
+            return Text('${data['title']}');
+            // If not assigned to the current user, return an empty container
           }
         }
         return Text('Loading...');

@@ -13,11 +13,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
-
   final user = FirebaseAuth.instance.currentUser!;
+  bool isChecked = false;
 
   //get docs
+
+  Future<void> deleteTask(String documentId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('chores')
+          .doc(documentId)
+          .delete();
+    } catch (e) {
+      print("Error deleting task: $e");
+      // Handle error if necessary
+    }
+  }
+
   Future<List<String>> getAssignedDocIds() async {
     final assignedDocs = await FirebaseFirestore.instance
         .collection('chores')
@@ -86,7 +98,6 @@ class _HomePageState extends State<HomePage> {
                   if (snapshot.connectionState == ConnectionState.done) {
                     final assignedDocIDs = snapshot.data ?? [];
                     return ListView.builder(
-                      ///////////////////////////////
                       itemCount: assignedDocIDs.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
@@ -99,6 +110,8 @@ class _HomePageState extends State<HomePage> {
                             ));
                           },
                           child: Container(
+                            height: 80,
+                            padding: EdgeInsets.symmetric(horizontal: 10),
                             margin: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -114,12 +127,33 @@ class _HomePageState extends State<HomePage> {
                                   color: Color.fromRGBO(255, 255, 255, 0.5),
                                   blurRadius: 10,
                                   offset: Offset(-3, -4),
-                                )
+                                ),
                               ],
                             ),
-                            child: ListTile(
-                              title:
-                                  GetChores(documentId: assignedDocIDs[index]),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: isChecked,
+                                      onChanged: (bool? newValue) {
+                                        setState(() {
+                                          isChecked = newValue!;
+                                        });
+                                      },
+                                    ),
+                                    GetChores(
+                                        documentId: assignedDocIDs[index]),
+                                  ],
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () async {
+                                    await deleteTask(assignedDocIDs[index]);
+                                  },
+                                ),
+                              ],
                             ),
                           ),
                         );
@@ -134,31 +168,12 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('add btn');
         },
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Color.fromARGB(255, 237, 206, 31)),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Account',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark),
-            label: 'Saved',
-          ),
-        ],
+        backgroundColor: Color.fromARGB(255, 237, 206, 31),
+        child: Icon(Icons.add),
       ),
     );
   }
