@@ -35,26 +35,25 @@ class _RegisterPageState extends State<RegisterPage> {
 
 //try sign in
     try {
-      if (passwordController.text == confirmPasswordController.text){
+      if (passwordController.text == confirmPasswordController.text) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      addUserDetails(
-        usernameController.text.trim(),
-        emailController.text.trim(),
-      );
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
-      }else {
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        addUserDetails(
+          usernameController.text.trim(),
+          emailController.text.trim(),
+        );
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
+      } else {
         showErrorMessage('Passwords don\'t match');
       }
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
-     //show err
-     showErrorMessage(e.code);
+      //show err
+      showErrorMessage(e.code);
     }
-    
     //stop the circle
   }
 
@@ -82,7 +81,6 @@ class _RegisterPageState extends State<RegisterPage> {
       'email': email,
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -164,15 +162,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareTile(
-                    onTap: () => AuthService().signInWithGoogle(),
-                    imagePath: 'lib/images/pngwing.com.png'),
-                  
+                      onTap: () => AuthService().signInWithGoogle(),
+                      imagePath: 'lib/images/pngwing.com.png'),
                 ],
               ),
               const SizedBox(
                 height: 25,
               ),
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
@@ -183,7 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     width: 4,
                   ),
                   GestureDetector(
-                      onTap: widget.onTap,
+                    onTap: widget.onTap,
                     child: const Text(
                       'Login now',
                       style: TextStyle(

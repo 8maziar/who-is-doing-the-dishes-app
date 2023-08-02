@@ -69,6 +69,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '386768511142',
     projectId: 'who-is-washing-the-dishes',
     storageBucket: 'who-is-washing-the-dishes.appspot.com',
+    androidClientId: '386768511142-vr6gbqqt8fse97lqeif8lkmfjk7mht5j.apps.googleusercontent.com',
     iosClientId: '386768511142-ivpg7jug22cvdev919ufun47kifpbqiq.apps.googleusercontent.com',
     iosBundleId: 'com.example.whosDoingTheDishes',
   );
