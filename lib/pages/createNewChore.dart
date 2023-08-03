@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:date_field/date_field.dart';
 import 'package:intl/intl.dart';
+import 'package:whos_doing_the_dishes/pages/hub_page.dart';
 
 class NewChore extends StatefulWidget {
   const NewChore({super.key});
@@ -10,8 +12,6 @@ class NewChore extends StatefulWidget {
 }
 
 class _NewChoreState extends State<NewChore> {
-  final _date = TextEditingController();
-
   String? taskTitle;
   String? taskDescription;
   String? taskPriority;
@@ -61,27 +61,21 @@ class _NewChoreState extends State<NewChore> {
                   },
                 ),
                 const SizedBox(height: 20.0),
-                TextFormField(
-                  controller: _date,
+                DateTimeFormField(
                   decoration: const InputDecoration(
                     icon: Icon(Icons.calendar_month),
                     hintStyle: TextStyle(color: Colors.black45),
                     errorStyle: TextStyle(color: Colors.redAccent),
                     labelText: 'Deadline',
                   ),
-                  onTap: () async {
-                    DateTime? pickdate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2100));
-
-                    if (pickdate != null) {
-                      setState(() {
-                        _date.text = DateFormat('yyyy-MM-dd').format(pickdate);
-                        taskDeadline = _date.text;
-                      });
-                    }
+                  mode: DateTimeFieldPickerMode.dateAndTime,
+                  dateFormat: DateFormat('y/M/d, hh:mm'),
+                  autovalidateMode: AutovalidateMode.always,
+                  validator: (e) => (e?.day ?? 0) == 1
+                      ? 'Invalid Date. Select Later Date'
+                      : null,
+                  onDateSelected: (DateTime value) {
+                    taskDeadline = value.toString();
                   },
                 ),
                 const SizedBox(height: 20.0),
@@ -100,6 +94,9 @@ class _NewChoreState extends State<NewChore> {
                             (value) => print('Task added'),
                           )
                           .catchError((error) => print(error));
+
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                     child: const Text("Create Task")),
               ],
