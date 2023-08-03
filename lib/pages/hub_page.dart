@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: screens[1],
+      body: screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
