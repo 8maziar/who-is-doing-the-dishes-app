@@ -5,12 +5,20 @@ class taskPage extends StatelessWidget {
   final String documentId;
   const taskPage({required this.documentId, Key? key}) : super(key: key);
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getChoreData() async {
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getChoreData() {
     return FirebaseFirestore.instance
         .collection('chores')
         .doc(documentId)
-        .get();
+        .snapshots();
   }
+
+ Future<void> updateChoreData(Map<String, dynamic> newData) {
+    return FirebaseFirestore.instance
+        .collection('chores')
+        .doc(documentId)
+        .update(newData);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +29,10 @@ class taskPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-          future: getChoreData(),
+        child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+          stream: getChoreData(),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
                 final choreData = snapshot.data!.data();
                 if (choreData != null) {
@@ -53,6 +61,7 @@ class taskPage extends StatelessWidget {
                               trailing: IconButton(
                                 icon: Icon(Icons.edit),
                                 onPressed: () {
+                                  _showUpdateDialog(context, key, value);
                                   print('edit');
                                 },
                               ),
@@ -80,4 +89,38 @@ class taskPage extends StatelessWidget {
       ),
     );
   }
+
+ void _showUpdateDialog(BuildContext context, String key, dynamic currentValue) {
+    TextEditingController _controller = TextEditingController(text: '$currentValue');
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Update $key'),
+          content: TextFormField(
+            controller: _controller,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                // Call the function to update data in Firestore
+                await updateChoreData({key: _controller.text});
+                Navigator.of(context).pop();
+              },
+              child: Text('Update'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 }

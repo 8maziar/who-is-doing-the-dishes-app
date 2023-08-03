@@ -21,6 +21,10 @@ Future<List<String>> getAssignedDocIds() async {
   return assignedDocs.docs.map((doc) => doc.id).toList();
 }
 
+
+
+
+
 class _HomePage2State extends State<HomePage2> {
   Map<String, bool> isCheckedMap = {};
 
