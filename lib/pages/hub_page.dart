@@ -51,13 +51,13 @@ class _HomePageState extends State<HomePage> {
               label: 'Home',
               backgroundColor: Color.fromARGB(255, 237, 206, 31)),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add, size: 50),
-              label: 'Add',
-              backgroundColor: Colors.blue),
-          BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
               label: 'Calendar',
               backgroundColor: Colors.red),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.add, size: 50),
+              label: 'Add',
+              backgroundColor: Colors.blue),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle),
               label: 'Account',

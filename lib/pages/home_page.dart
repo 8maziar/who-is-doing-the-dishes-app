@@ -16,13 +16,26 @@ Future<List<String>> getAssignedDocIds() async {
   final assignedDocs = await FirebaseFirestore.instance
       .collection('chores')
       .where('assignedTo', isEqualTo: user.email)
-      // Filter based on assignedTo field
       .get();
 
   return assignedDocs.docs.map((doc) => doc.id).toList();
 }
 
 class _HomePage2State extends State<HomePage2> {
+  bool isChecked = false;
+  bool isRemoved = false;
+
+  Future<void> deleteTask(String documentId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('chores')
+          .doc(documentId)
+          .delete();
+    } catch (e) {
+      print("Error deleting task: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -64,7 +77,6 @@ class _HomePage2State extends State<HomePage2> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   final assignedDocIDs = snapshot.data ?? [];
                   return ListView.builder(
-                    ///////////////////////////////
                     itemCount: assignedDocIDs.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
@@ -77,6 +89,8 @@ class _HomePage2State extends State<HomePage2> {
                           ));
                         },
                         child: Container(
+                          height: 80,
+                          padding: EdgeInsets.symmetric(horizontal: 10),
                           margin: const EdgeInsets.only(bottom: 16),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -92,11 +106,36 @@ class _HomePage2State extends State<HomePage2> {
                                 color: Color.fromRGBO(255, 255, 255, 0.5),
                                 blurRadius: 10,
                                 offset: Offset(-3, -4),
-                              )
+                              ),
                             ],
                           ),
-                          child: ListTile(
-                            title: GetChores(documentId: assignedDocIDs[index]),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: isChecked,
+                                    onChanged: (bool? newValue) {
+                                      setState(() {
+                                        isChecked = newValue!;
+                                      });
+                                    },
+                                  ),
+                                  GetChores(documentId: assignedDocIDs[index]),
+                                ],
+                              ),
+                              IconButton(
+                                color: Colors.red,
+                                icon: Icon(Icons.delete),
+                                onPressed: () async {
+                                  await deleteTask(assignedDocIDs[index]);
+                                  setState(() {
+                                    isRemoved = isRemoved!;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       );
