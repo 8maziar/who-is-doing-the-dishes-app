@@ -82,7 +82,8 @@ class taskPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('uvhrf');
+          Navigator.of(context).pop();
+          
         },
         backgroundColor: Color.fromARGB(255, 237, 206, 31),
         child: Icon(Icons.check),
