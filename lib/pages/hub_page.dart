@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  final screens = [HomePage2(), NewChore()];
+  final screens = [HomePage2(), Placeholder(), NewChore(), Placeholder(), Placeholder() ];
 
   //get docs
 
@@ -48,14 +48,16 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.home),
               label: 'Home',
               backgroundColor: Color.fromARGB(255, 237, 206, 31)),
+         
           BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
               label: 'Calendar',
               backgroundColor: Colors.red),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add, size: 50),
+              icon: Icon(Icons.add, size: 40),
               label: 'Add',
               backgroundColor: Colors.blue),
+          
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle),
               label: 'Account',
