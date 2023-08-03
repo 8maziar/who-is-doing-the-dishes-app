@@ -21,6 +21,11 @@ Future<List<String>> getAssignedDocIds() async {
   return assignedDocs.docs.map((doc) => doc.id).toList();
 }
 
+
+
+  
+
+
 class _HomePage2State extends State<HomePage2> {
   Map<String, bool> isCheckedMap = {};
 
@@ -34,6 +39,29 @@ class _HomePage2State extends State<HomePage2> {
       print("Error deleting task: $e");
     }
   }
+
+  Future<void> updateIsDone(String documentId) async {
+    try {
+      await FirebaseFirestore.instance
+      .collection('chores')
+      .doc(documentId)
+      .update({'isDone': true});
+    } catch (e) {
+      print("Error updating task: $e");
+    }
+  }
+
+  Future<void> updateIsNotDone(String documentId) async {
+    try {
+      await FirebaseFirestore.instance
+      .collection('chores')
+      .doc(documentId)
+      .update({'isDone': false});
+    } catch (e) {
+      print("Error updating task: $e");
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +150,10 @@ class _HomePage2State extends State<HomePage2> {
                                         isCheckedMap[documentId] =
                                             newValue ?? false;
                                       });
+                                      if(isChecked == true){
+                                        updateIsNotDone(documentId);
+                                      }
+                                   else{updateIsDone(documentId);} 
                                     },
                                   ),
                                   GetChores(documentId: documentId),
