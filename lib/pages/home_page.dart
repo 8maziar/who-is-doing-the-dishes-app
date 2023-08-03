@@ -23,6 +23,15 @@ Future<List<String>> getAssignedDocIds() async {
 
 
 
+Future<List<String>> getCompletedDocIds() async {
+  final completedDocs = await FirebaseFirestore.instance
+      .collection('chores')
+      .where('assignedTo', isEqualTo: user.email)
+      .where('isDone', isEqualTo: true)
+      .get();
+
+  return completedDocs.docs.map((doc) => doc.id).toList();
+}
 
 
 
@@ -186,3 +195,4 @@ class _HomePage2State extends State<HomePage2> {
     );
   }
 }
+
