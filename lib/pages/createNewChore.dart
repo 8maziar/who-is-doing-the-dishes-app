@@ -1,8 +1,6 @@
-// ignore: file_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:whos_doing_the_dishes/components/mytextfield.dart';
-import '../main.dart';
+import 'package:intl/intl.dart';
 
 class NewChore extends StatefulWidget {
   const NewChore({super.key});
@@ -12,13 +10,12 @@ class NewChore extends StatefulWidget {
 }
 
 class _NewChoreState extends State<NewChore> {
-  // final taskTitle = TextEditingController();
-  // final taskDescription = TextEditingController();
-  // final taskPriority = TextEditingController();
+  final _date = TextEditingController();
 
   String? taskTitle;
   String? taskDescription;
   String? taskPriority;
+  String? taskDeadline;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +23,12 @@ class _NewChoreState extends State<NewChore> {
         FirebaseFirestore.instance.collection('chores');
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            title: Text('New Task'),
-          ),
-          body: Form(
+        appBar: AppBar(
+          title: const Text('New Task'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Form(
             child: Column(
               children: [
                 TextFormField(
@@ -48,7 +47,7 @@ class _NewChoreState extends State<NewChore> {
                       hintText: "Describe Your Task",
                       label: Text("Description")),
                   onChanged: (value) {
-                    taskTitle = value;
+                    taskDescription = value;
                   },
                 ),
                 const SizedBox(height: 20.0),
@@ -58,7 +57,31 @@ class _NewChoreState extends State<NewChore> {
                       hintText: "High, Medium or Low",
                       label: Text("Priority")),
                   onChanged: (value) {
-                    taskTitle = value;
+                    taskPriority = value;
+                  },
+                ),
+                const SizedBox(height: 20.0),
+                TextFormField(
+                  controller: _date,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.calendar_month),
+                    hintStyle: TextStyle(color: Colors.black45),
+                    errorStyle: TextStyle(color: Colors.redAccent),
+                    labelText: 'Deadline',
+                  ),
+                  onTap: () async {
+                    DateTime? pickdate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2100));
+
+                    if (pickdate != null) {
+                      setState(() {
+                        _date.text = DateFormat('yyyy-MM-dd').format(pickdate);
+                        taskDeadline = _date.text;
+                      });
+                    }
                   },
                 ),
                 const SizedBox(height: 20.0),
@@ -68,17 +91,22 @@ class _NewChoreState extends State<NewChore> {
                           .add({
                             'title': taskTitle,
                             'description': taskDescription,
-                            "priority": taskPriority
+                            "priority": taskPriority,
+                            "deadline": taskDeadline,
+                            "isDone": false,
+                            "timeOfCompletion": null
                           })
                           .then(
                             (value) => print('Task added'),
                           )
                           .catchError((error) => print(error));
                     },
-                    child: Text("Create Task")),
+                    child: const Text("Create Task")),
               ],
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

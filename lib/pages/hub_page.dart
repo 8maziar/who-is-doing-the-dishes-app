@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/pages/home_page.dart';
-import 'package:whos_doing_the_dishes/pages/task_page.dart';
 
 import 'createNewChore.dart';
 
@@ -37,7 +35,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: screens[1],
+      body: screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
