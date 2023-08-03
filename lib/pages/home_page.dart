@@ -22,8 +22,7 @@ Future<List<String>> getAssignedDocIds() async {
 }
 
 class _HomePage2State extends State<HomePage2> {
-  bool isChecked = false;
-  bool isRemoved = false;
+  Map<String, bool> isCheckedMap = {};
 
   Future<void> deleteTask(String documentId) async {
     try {
@@ -79,12 +78,14 @@ class _HomePage2State extends State<HomePage2> {
                   return ListView.builder(
                     itemCount: assignedDocIDs.length,
                     itemBuilder: (context, index) {
+                      final documentId = assignedDocIDs[index];
+                      final isChecked = isCheckedMap[documentId] ?? false;
+
                       return GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) {
-                              return taskPage(
-                                  documentId: assignedDocIDs[index]);
+                              return taskPage(documentId: documentId);
                             },
                           ));
                         },
@@ -118,20 +119,21 @@ class _HomePage2State extends State<HomePage2> {
                                     value: isChecked,
                                     onChanged: (bool? newValue) {
                                       setState(() {
-                                        isChecked = newValue!;
+                                        isCheckedMap[documentId] =
+                                            newValue ?? false;
                                       });
                                     },
                                   ),
-                                  GetChores(documentId: assignedDocIDs[index]),
+                                  GetChores(documentId: documentId),
                                 ],
                               ),
                               IconButton(
                                 color: Colors.red,
                                 icon: Icon(Icons.delete),
                                 onPressed: () async {
-                                  await deleteTask(assignedDocIDs[index]);
+                                  await deleteTask(documentId);
                                   setState(() {
-                                    isRemoved = isRemoved!;
+                                    isCheckedMap.remove(documentId);
                                   });
                                 },
                               ),
