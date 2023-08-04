@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/pages/home_page.dart';
+import 'package:whos_doing_the_dishes/pages/messages.dart';
 import 'completed_chores.dart';
 import 'create_new_chore.dart';
 
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     const HomePage2(),
     const Placeholder(),
     const NewChore(),
-    const Placeholder(),
+    const Messenger(),
     const CompletedChores()
   ];
 
