@@ -26,81 +26,106 @@ class _NewChoreState extends State<NewChore> {
         appBar: AppBar(
           title: const Text('New Task'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Form(
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.task),
-                      hintText: "What is your task",
-                      label: Text("task")),
-                  onChanged: (value) {
-                    taskTitle = value;
-                  },
-                ),
-                const SizedBox(height: 20.0),
-                TextFormField(
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.book),
-                      hintText: "Describe Your Task",
-                      label: Text("Description")),
-                  onChanged: (value) {
-                    taskDescription = value;
-                  },
-                ),
-                const SizedBox(height: 20.0),
-                TextFormField(
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.flag),
-                      hintText: "High, Medium or Low",
-                      label: Text("Priority")),
-                  onChanged: (value) {
-                    taskPriority = value;
-                  },
-                ),
-                const SizedBox(height: 20.0),
-                DateTimeFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.calendar_month),
-                    hintStyle: TextStyle(color: Colors.black45),
-                    errorStyle: TextStyle(color: Colors.redAccent),
-                    labelText: 'Deadline',
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(30),
+                child: Form(
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: const InputDecoration(
+                            icon: Icon(Icons.task),
+                            hintText: "What is your task",
+                            label: Text("task")),
+                        onChanged: (value) {
+                          taskTitle = value;
+                        },
+                      ),
+                      const SizedBox(height: 20.0),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                            icon: Icon(Icons.book),
+                            hintText: "Describe Your Task",
+                            label: Text("Description")),
+                        onChanged: (value) {
+                          taskDescription = value;
+                        },
+                      ),
+                      const SizedBox(height: 20.0),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                            icon: Icon(Icons.flag),
+                            hintText: "High, Medium or Low",
+                            label: Text("Priority")),
+                        onChanged: (value) {
+                          taskPriority = value;
+                        },
+                      ),
+                      const SizedBox(height: 20.0),
+                      DateTimeFormField(
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.calendar_month),
+                          hintStyle: TextStyle(color: Colors.black45),
+                          errorStyle: TextStyle(color: Colors.redAccent),
+                          labelText: 'Deadline',
+                        ),
+                        mode: DateTimeFieldPickerMode.dateAndTime,
+                        dateFormat: DateFormat('y/M/d, hh:mm'),
+                        autovalidateMode: AutovalidateMode.always,
+                        validator: (e) => (e?.day ?? 0) == 1
+                            ? 'Invalid Date. Select Later Date'
+                            : null,
+                        onDateSelected: (DateTime value) {
+                          taskDeadline = value.toString();
+                        },
+                      ),
+                      const SizedBox(height: 20.0),
+                      ElevatedButton(
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(action: SnackBarAction(
+                                label: 'Added',
+                                onPressed: (){
+        
+                                },),
+                                content: const Text('Task Created!'),
+                                duration: const Duration(milliseconds: 2500),
+                                width: 300.0,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)
+                                ),
+                                ),
+                            );
+                            chores
+                                .add({
+                                  'title': taskTitle,
+                                  'description': taskDescription,
+                                  "priority": taskPriority,
+                                  "deadline": taskDeadline,
+                                  "isDone": false,
+                                  "timeOfCompletion": null
+                                })
+                                .then(
+                                  (value) => print('Task added'),
+                                  
+                                )
+                                .catchError((error) => print(error));
+        
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) => HomePage()));
+                          },
+                          child: const Text("Create Task")),
+                    ],
                   ),
-                  mode: DateTimeFieldPickerMode.dateAndTime,
-                  dateFormat: DateFormat('y/M/d, hh:mm'),
-                  autovalidateMode: AutovalidateMode.always,
-                  validator: (e) => (e?.day ?? 0) == 1
-                      ? 'Invalid Date. Select Later Date'
-                      : null,
-                  onDateSelected: (DateTime value) {
-                    taskDeadline = value.toString();
-                  },
                 ),
-                const SizedBox(height: 20.0),
-                ElevatedButton(
-                    onPressed: () {
-                      chores
-                          .add({
-                            'title': taskTitle,
-                            'description': taskDescription,
-                            "priority": taskPriority,
-                            "deadline": taskDeadline,
-                            "isDone": false,
-                            "timeOfCompletion": null
-                          })
-                          .then(
-                            (value) => print('Task added'),
-                          )
-                          .catchError((error) => print(error));
-
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                    child: const Text("Create Task")),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

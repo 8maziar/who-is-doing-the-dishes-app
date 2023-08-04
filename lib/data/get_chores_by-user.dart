@@ -24,7 +24,7 @@ class GetChores extends StatelessWidget {
 
           // Check if the 'assignedTo' field matches the current user's UID
           if (data!['assignedTo'] == user!.email) {
-            print(user);
+            
             return Text('${data['title']}');
             // If not assigned to the current user, return an empty container
           }
