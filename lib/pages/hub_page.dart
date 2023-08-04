@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:whos_doing_the_dishes/pages/completed_chores.dart';
+import 'package:whos_doing_the_dishes/pages/create_new_chore.dart';
 import 'package:whos_doing_the_dishes/pages/home_page.dart';
-import 'completedChores.dart';
-import 'createNewChore.dart';
+// import 'completedChores.dart';
+// import 'createNewChore.dart';
 import 'calendar.dart';
 
 
