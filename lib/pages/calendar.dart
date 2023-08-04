@@ -1,27 +1,7 @@
-import 'dart:collection';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:whos_doing_the_dishes/pages/task_page.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../data/get_chores_by-user.dart';
+
 import '../utils.dart';
-
-class Event {
-  final String id;
-  final String title;
-  final DateTime deadline; // Corrected name from dateTime to deadline
-  final bool isDone;
-
-  Event({
-    required this.id,
-    required this.title,
-    required this.deadline, // Corrected name from dateTime to deadline
-    this.isDone = false,
-  });
-}
-
 
 class Calendar extends StatefulWidget {
   @override
@@ -29,201 +9,109 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
-   final user = FirebaseAuth.instance.currentUser!;
   late final ValueNotifier<List<Event>> _selectedEvents;
-  final ValueNotifier<DateTime> _focusedDay = ValueNotifier(DateTime.now());
-  final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
-    equals: isSameDay,
-    hashCode: getHashCode,
-  );
-
-  late PageController _pageController;
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
+  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
+      .toggledOff; // Can be toggled on/off by longpressing a date
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
 
-@override
-void initState() {
-  super.initState();
-
-  _selectedDays.add(_focusedDay.value);
-  _loadEventsForDay(_focusedDay.value);
-}
-
-
-   Future<void> _loadEventsForDay(DateTime day) async {
-    final events = await _getEventsForDay(day);
-    _selectedEvents.value = events;
+  @override
+  void initState() {
+    super.initState();
+    _selectedDay = _focusedDay;
+    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
-
-Future<List<Event>> _getEventsForDayList(DateTime day) async {
-  return _getEventsForDay(day);
-}
-
 
   @override
   void dispose() {
-    _focusedDay.dispose();
     _selectedEvents.dispose();
     super.dispose();
   }
 
-  bool get canClearSelection =>
-      _selectedDays.isNotEmpty || _rangeStart != null || _rangeEnd != null;
-
-Future<List<Event>> _getEventsForDay(DateTime day) async {
-  final tasksSnapshot = await FirebaseFirestore.instance
-      .collection('chores')
-      .where('assignedTo', isEqualTo: user.email)
-      .where('deadline', isGreaterThanOrEqualTo: day)
-      .where('deadline', isLessThan: day.add(Duration(days: 1)))
-      .get();
-
-  final tasks = tasksSnapshot.docs.map((doc) {
-    final data = doc.data();
-    return Event(
-      id: doc.id,
-      title: data['title'], // Use 'title' instead of 'name'
-      deadline: (data['deadline'] as Timestamp).toDate(), // Use 'dateTime' instead of 'deadline'
-      isDone: data['isDone'],
-    );
-  }).toList();
-
-  return tasks;
-}
-Future<List<Event>> _getEventsForDays(Iterable<DateTime> days) async {
-  final tasksSnapshot = await FirebaseFirestore.instance
-      .collection('chores')
-      .where('assignedTo', isEqualTo: user.email)
-      .where('deadline', isGreaterThanOrEqualTo: days.first)
-      .where('deadline', isLessThanOrEqualTo: days.last.add(Duration(days: 1)))
-      .get();
-
-  final tasks = tasksSnapshot.docs.map((doc) {
-    final data = doc.data();
-    return Event(
-      id: doc.id,
-      title: data['title'],
-      deadline: (data['deadline'] as Timestamp).toDate(),
-      isDone: data['isDone'],
-    );
-  }).toList();
-
-  return tasks;
-}
-
-Future<List<Event>> _getEventsForRange(DateTime start, DateTime end) async {
-  final days = daysInRange(start, end);
-  return _getEventsForDays(days);
-}
-void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-  setState(() {
-    if (_selectedDays.contains(selectedDay)) {
-      _selectedDays.remove(selectedDay);
-    } else {
-      _selectedDays.add(selectedDay);
-    }
-
-    _focusedDay.value = focusedDay;
-    _rangeStart = null;
-    _rangeEnd = null;
-    _rangeSelectionMode = RangeSelectionMode.toggledOff;
-
-    // Call _getEventsForDay and update selected events
-    _getEventsForDay(selectedDay).then((events) {
-      _selectedEvents.value = events;
-    });
-  });
-}
-
-void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
-  setState(() {
-    _focusedDay.value = focusedDay;
-    _rangeStart = start;
-    _rangeEnd = end;
-    _selectedDays.clear();
-    _rangeSelectionMode = RangeSelectionMode.toggledOn;
-  });
-
-  if (start != null && end != null) {
-    _getEventsForDays(daysInRange(start, end)).then((events) {
-      _selectedEvents.value = events;
-    });
-  } else if (start != null) {
-    _getEventsForDay(start).then((events) {
-      _selectedEvents.value = events;
-    });
-  } else if (end != null) {
-    _getEventsForDay(end).then((events) {
-      _selectedEvents.value = events;
-    });
+  List<Event> _getEventsForDay(DateTime day) {
+    // Implementation example
+    return kEvents[day] ?? [];
   }
-}
 
+  List<Event> _getEventsForRange(DateTime start, DateTime end) {
+    // Implementation example
+    final days = daysInRange(start, end);
+
+    return [
+      for (final d in days) ..._getEventsForDay(d),
+    ];
+  }
+
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
+        _selectedDay = selectedDay;
+        _focusedDay = focusedDay;
+        _rangeStart = null; // Important to clean those
+        _rangeEnd = null;
+        _rangeSelectionMode = RangeSelectionMode.toggledOff;
+      });
+
+      _selectedEvents.value = _getEventsForDay(selectedDay);
+    }
+  }
+
+  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
+    setState(() {
+      _selectedDay = null;
+      _focusedDay = focusedDay;
+      _rangeStart = start;
+      _rangeEnd = end;
+      _rangeSelectionMode = RangeSelectionMode.toggledOn;
+    });
+
+    // `start` or `end` could be null
+    if (start != null && end != null) {
+      _selectedEvents.value = _getEventsForRange(start, end);
+    } else if (start != null) {
+      _selectedEvents.value = _getEventsForDay(start);
+    } else if (end != null) {
+      _selectedEvents.value = _getEventsForDay(end);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calendar'),
+        title: Text('TableCalendar - Events'),
       ),
       body: Column(
         children: [
-          ValueListenableBuilder<DateTime>(
-            valueListenable: _focusedDay,
-            builder: (context, value, _) {
-              return _CalendarHeader(
-                focusedDay: value,
-                clearButtonVisible: canClearSelection,
-                onTodayButtonTap: () {
-                  setState(() => _focusedDay.value = DateTime.now());
-                },
-                onClearButtonTap: () {
-                  setState(() {
-                    _rangeStart = null;
-                    _rangeEnd = null;
-                    _selectedDays.clear();
-                    _selectedEvents.value = [];
-                  });
-                },
-                onLeftArrowTap: () {
-                  _pageController.previousPage(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeOut,
-                  );
-                },
-                onRightArrowTap: () {
-                  _pageController.nextPage(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeOut,
-                  );
-                },
-              );
-            },
-          ),
           TableCalendar<Event>(
             firstDay: kFirstDay,
             lastDay: kLastDay,
-            focusedDay: _focusedDay.value,
-            headerVisible: false,
-            selectedDayPredicate: (day) => _selectedDays.contains(day),
+            focusedDay: _focusedDay,
+            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
             rangeStartDay: _rangeStart,
             rangeEndDay: _rangeEnd,
             calendarFormat: _calendarFormat,
             rangeSelectionMode: _rangeSelectionMode,
-            holidayPredicate: (day) {
-              // Every 20th day of the month will be treated as a holiday
-              return day.day == 20;
-            },
+            eventLoader: _getEventsForDay,
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            calendarStyle: CalendarStyle(
+              // Use `CalendarStyle` to customize the UI
+              outsideDaysVisible: false,
+            ),
             onDaySelected: _onDaySelected,
             onRangeSelected: _onRangeSelected,
-            onCalendarCreated: (controller) => _pageController = controller,
-            onPageChanged: (focusedDay) => _focusedDay.value = focusedDay,
             onFormatChanged: (format) {
               if (_calendarFormat != format) {
-                setState(() => _calendarFormat = format);
+                setState(() {
+                  _calendarFormat = format;
+                });
               }
+            },
+            onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
             },
           ),
           const SizedBox(height: 8.0),
@@ -252,66 +140,6 @@ void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
                 );
               },
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CalendarHeader extends StatelessWidget {
-  final DateTime focusedDay;
-  final VoidCallback onLeftArrowTap;
-  final VoidCallback onRightArrowTap;
-  final VoidCallback onTodayButtonTap;
-  final VoidCallback onClearButtonTap;
-  final bool clearButtonVisible;
-
-  const _CalendarHeader({
-    Key? key,
-    required this.focusedDay,
-    required this.onLeftArrowTap,
-    required this.onRightArrowTap,
-    required this.onTodayButtonTap,
-    required this.onClearButtonTap,
-    required this.clearButtonVisible,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final headerText = DateFormat.yMMM().format(focusedDay);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          const SizedBox(width: 16.0),
-          SizedBox(
-            width: 120.0,
-            child: Text(
-              headerText,
-              style: TextStyle(fontSize: 26.0),
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.calendar_today, size: 20.0),
-            visualDensity: VisualDensity.compact,
-            onPressed: onTodayButtonTap,
-          ),
-          if (clearButtonVisible)
-            IconButton(
-              icon: Icon(Icons.clear, size: 20.0),
-              visualDensity: VisualDensity.compact,
-              onPressed: onClearButtonTap,
-            ),
-          const Spacer(),
-          IconButton(
-            icon: Icon(Icons.chevron_left),
-            onPressed: onLeftArrowTap,
-          ),
-          IconButton(
-            icon: Icon(Icons.chevron_right),
-            onPressed: onRightArrowTap,
           ),
         ],
       ),
