@@ -35,6 +35,12 @@ class _NewChoreState extends State<NewChore> {
                   child: Column(
                     children: [
                       TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                         decoration: const InputDecoration(
                             icon: Icon(Icons.task),
                             hintText: "What is your task",
@@ -45,6 +51,12 @@ class _NewChoreState extends State<NewChore> {
                       ),
                       const SizedBox(height: 20.0),
                       TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                         decoration: const InputDecoration(
                             icon: Icon(Icons.book),
                             hintText: "Describe Your Task",
@@ -55,6 +67,12 @@ class _NewChoreState extends State<NewChore> {
                       ),
                       const SizedBox(height: 20.0),
                       TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                         decoration: const InputDecoration(
                             icon: Icon(Icons.flag),
                             hintText: "High, Medium or Low",
@@ -68,28 +86,41 @@ class _NewChoreState extends State<NewChore> {
                         decoration: const InputDecoration(
                           icon: Icon(Icons.calendar_month),
                           hintStyle: TextStyle(color: Colors.black45),
-                          errorStyle: TextStyle(color: Colors.redAccent),
+                          errorStyle: TextStyle(color: Colors.red),
                           labelText: 'Deadline',
                         ),
                         mode: DateTimeFieldPickerMode.dateAndTime,
                         dateFormat: DateFormat('y/M/d, hh:mm'),
                         autovalidateMode: AutovalidateMode.always,
-                        validator: (e) => (e?.day ?? 0) == 1
-                            ? 'Invalid Date. Select Later Date'
-                            : null,
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select a date';
+                          }
+                          DateTime currentDate = DateTime.now();
+                          currentDate = DateTime(currentDate.year,
+                              currentDate.month, currentDate.day);
+
+                          if (value.isBefore(currentDate)) {
+                            return 'Invalid Date. Select Later Date';
+                          }
+                          return null;
+                        },
                         onDateSelected: (DateTime value) {
                           taskDeadline = value.toString();
                         },
+                        firstDate: DateTime(DateTime.now().year - 1),
+                        lastDate: DateTime(DateTime.now().year + 1),
+                        initialDate: DateTime.now(),
                       ),
                       const SizedBox(height: 20.0),
                       ElevatedButton(
                           onPressed: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(action: SnackBarAction(
-                                label: 'Added',
-                                onPressed: (){
-        
-                                },),
+                              SnackBar(
+                                action: SnackBarAction(
+                                  label: 'Added',
+                                  onPressed: () {},
+                                ),
                                 content: const Text('Task Created!'),
                                 duration: const Duration(milliseconds: 2500),
                                 width: 300.0,
@@ -98,9 +129,8 @@ class _NewChoreState extends State<NewChore> {
                                 ),
                                 behavior: SnackBarBehavior.floating,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)
-                                ),
-                                ),
+                                    borderRadius: BorderRadius.circular(10.0)),
+                              ),
                             );
                             chores
                                 .add({
@@ -113,12 +143,11 @@ class _NewChoreState extends State<NewChore> {
                                 })
                                 .then(
                                   (value) => print('Task added'),
-                                  
                                 )
                                 .catchError((error) => print(error));
-        
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => const HomePage()));
+
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const HomePage()));
                           },
                           child: const Text("Create Task")),
                     ],
