@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/pages/home_page.dart';
-import 'package:whos_doing_the_dishes/pages/messages.dart';
-import 'completed_chores.dart';
-import 'create_new_chore.dart';
+import 'completedChores.dart';
+import 'createNewChore.dart';
+import 'calendar.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,13 +16,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  final screens = [
-    const HomePage2(),
-    const Placeholder(),
-    const NewChore(),
-    const Messenger(),
-    const CompletedChores()
-  ];
+
+  final screens = [HomePage2(), Calendar(), NewChore(), Placeholder(), CompletedChores() ];
+
 
   //get docs
 
