@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class GetChores extends StatelessWidget {
   final String documentId;
 
-  GetChores({required this.documentId});
+  const GetChores({super.key, required this.documentId});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class GetChores extends StatelessWidget {
             // If not assigned to the current user, return an empty container
           }
         }
-        return Text('Loading...');
+        return const Text('Loading...');
       }),
     );
   }

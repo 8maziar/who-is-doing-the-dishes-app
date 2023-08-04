@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +8,6 @@ class Messenger extends StatefulWidget {
   State<Messenger> createState() => _MessengerState();
 }
 
-
 class _MessengerState extends State<Messenger> {
   String? mtoken = " ";
   TextEditingController email = TextEditingController();
@@ -18,19 +15,18 @@ class _MessengerState extends State<Messenger> {
   TextEditingController body = TextEditingController();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     requestPermission();
     getToken();
   }
- 
- void getToken() {
-  FirebaseMessaging.instance.getToken().then((newToken){ 
-  print('new token');
-  print(newToken);
- });
- }
- 
+
+  void getToken() {
+    FirebaseMessaging.instance.getToken().then((newToken) {
+      print('new token');
+      print(newToken);
+    });
+  }
 
   void requestPermission() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -44,14 +40,14 @@ class _MessengerState extends State<Messenger> {
       sound: true,
     );
 
-    if(settings.authorizationStatus == AuthorizationStatus.authorized){
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       print('User granted permission');
-    } else if (settings.authorizationStatus == AuthorizationStatus.provisional){
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
       print('User granted provisional permission');
     } else {
       print('User declined or has not accepted permission');
     }
-
   }
 
   @override
@@ -80,18 +76,17 @@ class _MessengerState extends State<Messenger> {
                 margin: const EdgeInsets.all(20),
                 height: 40,
                 width: 200,
-
                 decoration: BoxDecoration(
-                  color: Colors.purple,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.purpleAccent.withOpacity(0.5),
-
-                    )
-                  ]
+                    color: Colors.purple,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.purpleAccent.withOpacity(0.5),
+                      )
+                    ]),
+                child: const Center(
+                  child: Text('button'),
                 ),
-                child: Center(child: const Text('button'),),
               ),
             )
           ],

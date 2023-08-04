@@ -118,7 +118,7 @@ class _NewChoreState extends State<NewChore> {
                                 .catchError((error) => print(error));
         
                             Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => HomePage()));
+                                MaterialPageRoute(builder: (context) => const HomePage()));
                           },
                           child: const Text("Create Task")),
                     ],
