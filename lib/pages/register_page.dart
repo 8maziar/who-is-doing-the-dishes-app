@@ -20,6 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final usernameController = TextEditingController();
+  final fcmTokenController = TextEditingController();
 
 //user sign in method
   void signUserUp() async {
@@ -43,6 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
         addUserDetails(
           usernameController.text.trim(),
           emailController.text.trim(),
+          //fcmTokenController.text,
         );
         // ignore: use_build_context_synchronously
         Navigator.pop(context);
@@ -75,10 +77,15 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+
+//code for FCM Token
+
+
   Future addUserDetails(String name, String email) async {
     await FirebaseFirestore.instance.collection('users').add({
       'name': name,
       'email': email,
+      //'FCMToken': token,
     });
   }
 
