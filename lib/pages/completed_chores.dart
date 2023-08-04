@@ -1,12 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:date_field/date_field.dart';
-import 'package:intl/intl.dart';
-import 'package:whos_doing_the_dishes/pages/hub_page.dart';
-import '../data/get_chores_by-user.dart';
 import 'task_page.dart';
-
 
 class CompletedChores extends StatefulWidget {
   const CompletedChores({Key? key}) : super(key: key);
@@ -15,9 +10,8 @@ class CompletedChores extends StatefulWidget {
   State<CompletedChores> createState() => _CompletedChoresState();
 }
 
-
 Future<List<String>> getCompletedDocIds() async {
-  final user = FirebaseAuth.instance.currentUser; 
+  final user = FirebaseAuth.instance.currentUser;
   if (user == null) {
     return [];
   }
@@ -31,12 +25,8 @@ Future<List<String>> getCompletedDocIds() async {
   return completedDocs.docs.map((doc) => doc.id).toList();
 }
 
-
-
 class _CompletedChoresState extends State<CompletedChores> {
-
-
- Future<String> getTaskName(String documentId) async {
+  Future<String> getTaskName(String documentId) async {
     final taskSnapshot = await FirebaseFirestore.instance
         .collection('chores')
         .doc(documentId)
@@ -50,12 +40,11 @@ class _CompletedChoresState extends State<CompletedChores> {
     }
   }
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Completed Chores'),
+        title: const Text('Completed Chores'),
       ),
       body: FutureBuilder<List<String>>(
         future: getCompletedDocIds(),
@@ -63,42 +52,42 @@ class _CompletedChoresState extends State<CompletedChores> {
           if (snapshot.connectionState == ConnectionState.done) {
             final completedDocIDs = snapshot.data ?? [];
             if (completedDocIDs.isEmpty) {
-              return Center(child: Text('No completed tasks found.'));
+              return const Center(child: Text('No completed tasks found.'));
             }
             return ListView.builder(
-  itemCount: completedDocIDs.length,
-  itemBuilder: (context, index) {
-    final documentId = completedDocIDs[index];
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) {
-              return taskPage(documentId: documentId);
-            },
-          ),
-        );
-      },
-      child: FutureBuilder<String>(
-        future: getTaskName(documentId),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            final taskName = snapshot.data ?? 'Unknown Task';
-            return ListTile(
-              title: Text(taskName),
+              itemCount: completedDocIDs.length,
+              itemBuilder: (context, index) {
+                final documentId = completedDocIDs[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return taskPage(documentId: documentId);
+                        },
+                      ),
+                    );
+                  },
+                  child: FutureBuilder<String>(
+                    future: getTaskName(documentId),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        final taskName = snapshot.data ?? 'Unknown Task';
+                        return ListTile(
+                          title: Text(taskName),
+                        );
+                      } else {
+                        return const ListTile(
+                          title: Text('Loading...'),
+                        );
+                      }
+                    },
+                  ),
+                );
+              },
             );
           } else {
-            return ListTile(
-              title: Text('Loading...'),
-            );
-          }
-        },
-      ),
-    );
-  },
-);
-          } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

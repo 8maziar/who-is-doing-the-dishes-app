@@ -1,3 +1,4 @@
+// ignore_for_file: camel_case_types
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -12,20 +13,19 @@ class taskPage extends StatelessWidget {
         .snapshots();
   }
 
- Future<void> updateChoreData(Map<String, dynamic> newData) {
+  Future<void> updateChoreData(Map<String, dynamic> newData) {
     return FirebaseFirestore.instance
         .collection('chores')
         .doc(documentId)
         .update(newData);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Task Details'),
-        backgroundColor: Color.fromARGB(255, 237, 206, 31),
+        title: const Text('Task Details'),
+        backgroundColor: const Color.fromARGB(255, 237, 206, 31),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -52,14 +52,14 @@ class taskPage extends StatelessWidget {
                             return ListTile(
                               title: Text(
                                 '$key:',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
                               subtitle: Text(
                                 '$value',
-                                style: TextStyle(fontSize: 16),
+                                style: const TextStyle(fontSize: 16),
                               ),
                               trailing: IconButton(
-                                icon: Icon(Icons.edit),
+                                icon: const Icon(Icons.edit),
                                 onPressed: () {
                                   _showUpdateDialog(context, key, value);
                                   print('edit');
@@ -73,9 +73,9 @@ class taskPage extends StatelessWidget {
                   );
                 }
               }
-              return Center(child: Text('No data found'));
+              return const Center(child: Text('No data found'));
             } else {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
           },
         ),
@@ -84,14 +84,16 @@ class taskPage extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).pop();
         },
-        backgroundColor: Color.fromARGB(255, 237, 206, 31),
-        child: Icon(Icons.check),
+        backgroundColor: const Color.fromARGB(255, 237, 206, 31),
+        child: const Icon(Icons.check),
       ),
     );
   }
 
- void _showUpdateDialog(BuildContext context, String key, dynamic currentValue) {
-    TextEditingController _controller = TextEditingController(text: '$currentValue');
+  void _showUpdateDialog(
+      BuildContext context, String key, dynamic currentValue) {
+    TextEditingController _controller =
+        TextEditingController(text: '$currentValue');
 
     showDialog(
       context: context,
@@ -106,7 +108,7 @@ class taskPage extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () async {
@@ -114,13 +116,11 @@ class taskPage extends StatelessWidget {
                 await updateChoreData({key: _controller.text});
                 Navigator.of(context).pop();
               },
-              child: Text('Update'),
+              child: const Text('Update'),
             ),
           ],
         );
       },
     );
   }
-
-
 }
