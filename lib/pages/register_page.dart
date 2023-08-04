@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/services/auth_service.dart';
 
@@ -20,7 +21,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final usernameController = TextEditingController();
-  final fcmTokenController = TextEditingController();
+  String? mtoken = " ";
 
 //user sign in method
   void signUserUp() async {
@@ -41,13 +42,16 @@ class _RegisterPageState extends State<RegisterPage> {
           email: emailController.text,
           password: passwordController.text,
         );
+        getToken().then((token) =>{
         addUserDetails(
           usernameController.text.trim(),
           emailController.text.trim(),
+          token,
+        
           //fcmTokenController.text,
-        );
+        )});
         // ignore: use_build_context_synchronously
-        Navigator.pop(context);
+        
       } else {
         showErrorMessage('Passwords don\'t match');
       }
@@ -79,12 +83,24 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
 //code for FCM Token
+ Future getToken() async {
+  await FirebaseMessaging.instance.getToken().then(
+    (token){ 
+    
+      mtoken = token;
+      print("My Token is $mtoken");
+    
+ }
+ );
+ }
 
 
-  Future addUserDetails(String name, String email) async {
+
+  Future addUserDetails(String name, String email, String token) async {
     await FirebaseFirestore.instance.collection('users').add({
       'name': name,
       'email': email,
+      'token': token,
       //'FCMToken': token,
     });
   }

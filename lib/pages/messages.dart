@@ -1,5 +1,6 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
@@ -21,15 +22,27 @@ class _MessengerState extends State<Messenger> {
   void initState(){
     super.initState();
     requestPermission();
-    getToken();
+    // getToken();
   }
  
- void getToken() {
-  FirebaseMessaging.instance.getToken().then((newToken){ 
-  print('new token');
-  print(newToken);
- });
- }
+//  void getToken() async {
+//   await FirebaseMessaging.instance.getToken().then(
+//     (token){ 
+//     setState(() {
+//       mtoken = token;
+//       print("My Token is $mtoken");
+//     });
+//     saveToken(token!);
+//  }
+//  );
+//  }
+
+//  void saveToken(String token) async {
+//   await FirebaseFirestore.instance.collection("UserToken").doc("User1").set({
+//     'token' : token,
+//   });
+
+//  }
  
 
   void requestPermission() async {
@@ -91,7 +104,7 @@ class _MessengerState extends State<Messenger> {
                     )
                   ]
                 ),
-                child: Center(child: const Text('button'),),
+                child: const Center(child: Text('button'),),
               ),
             )
           ],
