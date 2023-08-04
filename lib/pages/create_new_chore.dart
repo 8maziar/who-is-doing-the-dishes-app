@@ -12,6 +12,8 @@ class NewChore extends StatefulWidget {
 }
 
 class _NewChoreState extends State<NewChore> {
+  final _formKey = GlobalKey<FormState>();
+
   String? taskTitle;
   String? taskDescription;
   String? taskPriority;
@@ -32,6 +34,8 @@ class _NewChoreState extends State<NewChore> {
               Padding(
                 padding: const EdgeInsets.all(30),
                 child: Form(
+                  key: _formKey,
+                  autovalidateMode: AutovalidateMode.disabled,
                   child: Column(
                     children: [
                       TextFormField(
@@ -115,6 +119,12 @@ class _NewChoreState extends State<NewChore> {
                       const SizedBox(height: 20.0),
                       ElevatedButton(
                           onPressed: () {
+                            _formKey.currentState!.validate();
+                            if (_formKey.currentState!.validate()) {
+                              print('Form is valid');
+                            } else {
+                              print('Form is not valid');
+                            }
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 action: SnackBarAction(
@@ -122,7 +132,7 @@ class _NewChoreState extends State<NewChore> {
                                   onPressed: () {},
                                 ),
                                 content: const Text('Task Created!'),
-                                duration: const Duration(milliseconds: 2500),
+                                duration: const Duration(milliseconds: 5000),
                                 width: 300.0,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 8.0,
