@@ -24,33 +24,32 @@ class _RegisterPageState extends State<RegisterPage> {
   String? mtoken = " ";
 
 //user sign in method
-void signUserUp() async {
-  // try sign in
-  try {
-    if (passwordController.text == confirmPasswordController.text) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-        
-      );
-      
-      String? token = await getToken();
-      if (token != null) {
-        addUserDetails(
-          usernameController.text.trim(),
-          emailController.text.trim(),
-          token,
+  void signUserUp() async {
+    // try sign in
+    try {
+      if (passwordController.text == confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
         );
+
+        String? token = await getToken();
+        if (token != null) {
+          addUserDetails(
+            usernameController.text.trim(),
+            emailController.text.trim(),
+            token,
+          );
+        } else {
+          showErrorMessage('Failed to get FCM token. Please try again later.');
+        }
       } else {
-       showErrorMessage('Failed to get FCM token. Please try again later.');
+        showErrorMessage('Passwords don\'t match');
       }
-      } else {
-      showErrorMessage('Passwords don\'t match');
+    } on FirebaseAuthException catch (e) {
+      showErrorMessage(e.code);
     }
-  } on FirebaseAuthException catch (e) {
-    showErrorMessage(e.code);
   }
-}
 
   //wrong email message
   void showErrorMessage(String message) {
@@ -58,7 +57,7 @@ void signUserUp() async {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Color.fromARGB(255, 190, 175, 8),
+          backgroundColor: const Color.fromARGB(255, 190, 175, 8),
           title: Center(
             child: Text(
               message,
@@ -70,20 +69,17 @@ void signUserUp() async {
     );
   }
 
-
 //code for FCM Token
-Future<String?> getToken() async {
-  try {
-    String? token = await FirebaseMessaging.instance.getToken();
-    print("My Token is $token");
-    return token;
-  } catch (e) {
-    print("Error getting FCM token: $e");
-    return null;
+  Future<String?> getToken() async {
+    try {
+      String? token = await FirebaseMessaging.instance.getToken();
+      print("My Token is $token");
+      return token;
+    } catch (e) {
+      print("Error getting FCM token: $e");
+      return null;
+    }
   }
-}
-
-
 
   Future addUserDetails(String name, String email, String token) async {
     await FirebaseFirestore.instance.collection('users').add({
@@ -91,7 +87,6 @@ Future<String?> getToken() async {
       'email': email,
       'token': token,
     });
-          
   }
 
   @override
