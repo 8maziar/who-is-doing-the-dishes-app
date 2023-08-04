@@ -21,6 +21,8 @@ Future<List<String>> getAssignedDocIds() async {
   return assignedDocs.docs.map((doc) => doc.id).toList();
 }
 
+final userEmail = FirebaseAuth.instance.currentUser?.email;
+
 Future<List<String>> getCompletedDocIds() async {
   final completedDocs = await FirebaseFirestore.instance
       .collection('chores')
@@ -91,10 +93,10 @@ class _HomePage2State extends State<HomePage2> {
           const SizedBox(
             height: 40,
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("List of tasks",
+              Text("List of tasks for $userEmail",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ],
           ),
