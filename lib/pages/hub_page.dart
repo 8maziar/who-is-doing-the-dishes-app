@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/pages/home_page.dart';
 import 'completedChores.dart';
 import 'createNewChore.dart';
+import 'calendar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  final screens = [HomePage2(), Placeholder(), NewChore(), Placeholder(), CompletedChores() ];
+  final screens = [HomePage2(), Calendar(), NewChore(), Placeholder(), CompletedChores() ];
 
   //get docs
 
