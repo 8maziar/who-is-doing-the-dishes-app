@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/pages/task_page.dart';
-import '../data/get_chores_by-user.dart';
+import '../data/get_chores_by_user.dart';
 
 class HomePage2 extends StatefulWidget {
   const HomePage2({super.key});
@@ -21,8 +21,6 @@ Future<List<String>> getAssignedDocIds() async {
   return assignedDocs.docs.map((doc) => doc.id).toList();
 }
 
-
-
 Future<List<String>> getCompletedDocIds() async {
   final completedDocs = await FirebaseFirestore.instance
       .collection('chores')
@@ -32,8 +30,6 @@ Future<List<String>> getCompletedDocIds() async {
 
   return completedDocs.docs.map((doc) => doc.id).toList();
 }
-
-
 
 class _HomePage2State extends State<HomePage2> {
   Map<String, bool> isCheckedMap = {};
@@ -52,9 +48,9 @@ class _HomePage2State extends State<HomePage2> {
   Future<void> updateIsDone(String documentId) async {
     try {
       await FirebaseFirestore.instance
-      .collection('chores')
-      .doc(documentId)
-      .update({'isDone': true});
+          .collection('chores')
+          .doc(documentId)
+          .update({'isDone': true});
     } catch (e) {
       print("Error updating task: $e");
     }
@@ -63,14 +59,13 @@ class _HomePage2State extends State<HomePage2> {
   Future<void> updateIsNotDone(String documentId) async {
     try {
       await FirebaseFirestore.instance
-      .collection('chores')
-      .doc(documentId)
-      .update({'isDone': false});
+          .collection('chores')
+          .doc(documentId)
+          .update({'isDone': false});
     } catch (e) {
       print("Error updating task: $e");
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +123,7 @@ class _HomePage2State extends State<HomePage2> {
                         },
                         child: Container(
                           height: 80,
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           margin: const EdgeInsets.only(bottom: 16),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -159,10 +154,11 @@ class _HomePage2State extends State<HomePage2> {
                                         isCheckedMap[documentId] =
                                             newValue ?? false;
                                       });
-                                      if(isChecked == true){
+                                      if (isChecked == true) {
                                         updateIsNotDone(documentId);
+                                      } else {
+                                        updateIsDone(documentId);
                                       }
-                                   else{updateIsDone(documentId);} 
                                     },
                                   ),
                                   GetChores(documentId: documentId),
@@ -170,7 +166,7 @@ class _HomePage2State extends State<HomePage2> {
                               ),
                               IconButton(
                                 color: Colors.red,
-                                icon: Icon(Icons.delete),
+                                icon: const Icon(Icons.delete),
                                 onPressed: () async {
                                   await deleteTask(documentId);
                                   setState(() {
@@ -185,7 +181,7 @@ class _HomePage2State extends State<HomePage2> {
                     },
                   );
                 } else {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
               },
             ),
@@ -195,4 +191,3 @@ class _HomePage2State extends State<HomePage2> {
     );
   }
 }
-

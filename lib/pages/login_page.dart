@@ -16,7 +16,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
 
 //user sign in method
@@ -37,12 +36,12 @@ class _LoginPageState extends State<LoginPage> {
         email: emailController.text,
         password: passwordController.text,
       );
-      
+
       // ignore: use_build_context_synchronously
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-     //show err
-     showErrorMessage(e.code);
+      //show err
+      showErrorMessage(e.code);
     }
     //stop the circle
   }
@@ -65,24 +64,23 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 235, 196, 0),
+      backgroundColor: const Color.fromARGB(255, 235, 196, 0),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 10),
-              const Text('Whos doing',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-              ),),
+              const Text(
+                'Whos doing',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 10),
               Image.asset('lib/images/logo.png'),
               const SizedBox(height: 10),
@@ -156,16 +154,14 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareTile(
-                    onTap: () => AuthService().signInWithGoogle(),
-                    imagePath: 'lib/images/pngwing.com.png'),
-                  
-                  
+                      onTap: () => AuthService().signInWithGoogle(),
+                      imagePath: 'lib/images/pngwing.com.png'),
                 ],
               ),
               const SizedBox(
                 height: 25,
               ),
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
@@ -176,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: 4,
                   ),
                   GestureDetector(
-                      onTap: widget.onTap,
+                    onTap: widget.onTap,
                     child: const Text(
                       'Register now',
                       style: TextStyle(
