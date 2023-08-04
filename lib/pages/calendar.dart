@@ -5,7 +5,7 @@ import 'package:whos_doing_the_dishes/pages/task_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../data/get_chores_by-user.dart';
+import '../data/get_chores_by_user.dart';
 import '../utils.dart';
 
 class Event {

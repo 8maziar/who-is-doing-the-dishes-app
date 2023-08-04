@@ -169,6 +169,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.6.0"
+  firebase_in_app_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_in_app_messaging
+      sha256: "15d4867d22610c4fb9c27b72d876e5dcfde9b53f15344df1ca1812368c22cf35"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.3+4"
+  firebase_in_app_messaging_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_in_app_messaging_platform_interface
+      sha256: "49665e82e0ccc39a1387e5d8eecb2594effb4084fb87ce057b267395076b7107"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.4+4"
   firebase_messaging:
     dependency: "direct main"
     description:

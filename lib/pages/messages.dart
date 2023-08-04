@@ -1,5 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:whos_doing_the_dishes/pages/hub_page.dart';
 
 class Messenger extends StatefulWidget {
   const Messenger({super.key});
@@ -9,24 +11,15 @@ class Messenger extends StatefulWidget {
 }
 
 class _MessengerState extends State<Messenger> {
-  String? mtoken = " ";
+
   TextEditingController email = TextEditingController();
   TextEditingController title = TextEditingController();
   TextEditingController body = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    requestPermission();
-    getToken();
-  }
 
-  void getToken() {
-    FirebaseMessaging.instance.getToken().then((newToken) {
-      print('new token');
-      print(newToken);
-    });
-  }
+
+
+  
 
   void requestPermission() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
