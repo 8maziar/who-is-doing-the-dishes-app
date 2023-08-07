@@ -75,7 +75,7 @@ class _Calendar extends State<Calendar> {
     return Scaffold(
       appBar: AppBar(title: const Text('Calendar App')),
       body: Container(
-        color: const Color.fromARGB(255, 216, 232, 245),
+        color: const Color.fromARGB(255, 219, 228, 236),
         child: ListView(
           children: [
             TableCalendar(
