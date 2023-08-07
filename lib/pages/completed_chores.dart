@@ -49,6 +49,7 @@ class _CompletedChoresState extends State<CompletedChores> {
       appBar: AppBar(
         title: const Text('Completed Chores'),
       ),
+
       body: Column(
         children: [
           if (showAnimation)
@@ -101,6 +102,7 @@ class _CompletedChoresState extends State<CompletedChores> {
                           },
                         ),
                       );
+
                     },
                   );
                 } else {
