@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: const Color.fromRGBO(134, 193, 41, 1),
           title: Center(
             child: Text(
               message,
@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 235, 196, 0),
+      backgroundColor: Color.fromRGBO(2, 109, 197, 1),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -75,24 +75,24 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               const SizedBox(height: 10),
               const Text(
-                'Whos doing',
+                'Who\'s Doing',
                 style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
+                    color: Color.fromARGB(255, 245, 245, 245),
+                    fontSize: 24,
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-              Image.asset('lib/images/logo.png'),
+              Image.asset('lib/images/logo1.png'),
               const SizedBox(height: 10),
               const Text(
-                'The Dishes!',
+                'The Dishes?',
                 style: TextStyle(
-                  color: Color.fromARGB(255, 27, 26, 26),
-                  fontSize: 16,
+                  color: Color.fromARGB(255, 251, 251, 251),
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               MyTextField(
                 controller: emailController,
                 hintText: 'Email',
@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       'Forgot Password?',
-                      style: TextStyle(color: Color.fromARGB(255, 11, 11, 11)),
+                      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     ),
                   ],
                 ),
@@ -130,20 +130,20 @@ class _LoginPageState extends State<LoginPage> {
                     Expanded(
                       child: Divider(
                         thickness: 0.5,
-                        color: Colors.grey,
+                        color: Color.fromRGBO(0, 51, 147, 1),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
                         'Or continue with',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                       ),
                     ),
                     Expanded(
                       child: Divider(
                         thickness: 0.5,
-                        color: Colors.grey,
+                        color: Color.fromRGBO(0, 51, 147, 1),
                       ),
                     ),
                   ],
@@ -166,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const Text(
                     'Not a member?',
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                   const SizedBox(
                     width: 4,
@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: const Text(
                       'Register now',
                       style: TextStyle(
-                          color: Color.fromARGB(255, 157, 14, 197),
+                          color: Color.fromRGBO(164, 244, 37, 1),
                           fontWeight: FontWeight.bold),
                     ),
                   )

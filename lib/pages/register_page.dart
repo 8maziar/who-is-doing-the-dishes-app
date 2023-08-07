@@ -57,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: const Color.fromARGB(255, 190, 175, 8),
+          backgroundColor: const Color.fromRGBO(2, 109, 197, 1),
           title: Center(
             child: Text(
               message,
@@ -92,20 +92,21 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 239, 199, 2),
+      backgroundColor: const Color.fromRGBO(2, 109, 197, 1),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 10),
-              Image.asset('lib/images/logo.png'),
+              Image.asset('lib/images/logo1.png'),
               const SizedBox(height: 10),
               const Text(
                 'Let\'s create an account',
                 style: TextStyle(
-                  color: Color.fromARGB(255, 6, 6, 6),
-                  fontSize: 16,
+                  color: Color.fromARGB(255, 248, 246, 246),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 10),
@@ -152,7 +153,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
                         'Or continue with',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                       ),
                     ),
                     Expanded(
@@ -181,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   const Text(
                     'Already have an account?',
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Color.fromARGB(255, 245, 243, 243)),
                   ),
                   const SizedBox(
                     width: 4,
@@ -191,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: const Text(
                       'Login now',
                       style: TextStyle(
-                          color: Color.fromARGB(255, 14, 69, 197),
+                          color: Color.fromRGBO(164, 244, 37, 1),
                           fontWeight: FontWeight.bold),
                     ),
                   )

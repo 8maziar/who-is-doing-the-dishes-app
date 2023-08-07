@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/pages/completed_chores.dart';
 import 'package:whos_doing_the_dishes/pages/create_new_chore.dart';
 import 'package:whos_doing_the_dishes/pages/home_page.dart';
-
-import 'completedChores.dart';
-import 'createNewChore.dart';
 import 'calendar/new_calendar.dart';
-/* import 'calendar.dart'; */
 
 
 class HomePage extends StatefulWidget {
@@ -35,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 247, 247, 247),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 237, 206, 31),
+        backgroundColor: const Color.fromRGBO(2, 109, 197, 1),
         actions: [
           IconButton(
             onPressed: signUserOut,
@@ -55,23 +51,23 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
-              backgroundColor: Color.fromARGB(255, 237, 206, 31)),
+              backgroundColor: Color.fromRGBO(2, 109, 197, 1)),
           BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
               label: 'Calendar',
-              backgroundColor: Colors.red),
+              backgroundColor: Color.fromARGB(255, 46, 135, 229)),
           BottomNavigationBarItem(
               icon: Icon(Icons.add, size: 40),
               label: 'Add',
-              backgroundColor: Colors.blue),
+              backgroundColor: Color.fromARGB(255, 24, 179, 86)),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle),
               label: 'Account',
-              backgroundColor: Colors.purple),
+              backgroundColor: Color.fromARGB(255, 39, 162, 176)),
           BottomNavigationBarItem(
               icon: Icon(Icons.bookmark),
               label: 'Completed',
-              backgroundColor: Colors.orange),
+              backgroundColor: Color.fromARGB(255, 2, 197, 191)),
         ],
       ),
     );
