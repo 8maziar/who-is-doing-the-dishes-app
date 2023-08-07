@@ -1,7 +1,4 @@
-
 import 'package:firebase_messaging/firebase_messaging.dart';
-
-
 
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print('Title: ${message.notification?.title}');
@@ -9,12 +6,10 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print('Payload: ${message.data}');
 }
 
-
-class pushNotifications {
+class PushNotifications {
   final _firebaseMessaging = FirebaseMessaging.instance;
-  
 
-  Future<void> initNotifications()async {
+  Future<void> initNotifications() async {
     await _firebaseMessaging.requestPermission();
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   }

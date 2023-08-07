@@ -73,18 +73,15 @@ class _CompletedChoresState extends State<CompletedChores> {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         final taskName = snapshot.data ?? 'Unknown Task';
-                        return Container(
-                          
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: ListTile(
-                              textColor: Colors.white,
-                              titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
-                              tileColor: Color.fromARGB(255, 2, 197, 191),
-                              title: Text(taskName,
-                              ),
-                              
+                        return Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ListTile(
+                            textColor: Colors.white,
+                            titleTextStyle: const TextStyle(fontWeight: FontWeight.bold),
+                            tileColor: const Color.fromARGB(255, 2, 197, 191),
+                            title: Text(taskName,
                             ),
+                            
                           ),
                         );
                       } else {

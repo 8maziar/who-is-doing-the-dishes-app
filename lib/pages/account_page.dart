@@ -8,9 +8,9 @@ class AccountPage extends StatelessWidget {
     final User? user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 216, 232, 245),
+      backgroundColor: const Color.fromARGB(255, 216, 232, 245),
       appBar: AppBar(
-        title: Text('Account'),
+        title: const Text('Account'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -25,11 +25,11 @@ class AccountPage extends StatelessWidget {
                 height: 100,
                 fit: BoxFit.cover,
               ),
-              SizedBox(height: 20),
-              SizedBox(height: 10),
+              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Text(
                 'Email: ${user?.email ?? 'N/A'}',
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ],
           ),

@@ -72,19 +72,17 @@ class _HomePage2State extends State<HomePage2> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 216, 232, 245),
+      color: const Color.fromARGB(255, 216, 232, 245),
       child: Padding(
         padding: const EdgeInsets.all(40.0),
         child: Column(
           children: [
             const Row(
-              
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                
                 Text("Homepage",
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800)),
-               
+                    style:
+                        TextStyle(fontSize: 26, fontWeight: FontWeight.w800)),
               ],
             ),
             const SizedBox(
@@ -94,7 +92,8 @@ class _HomePage2State extends State<HomePage2> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text("List of tasks",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               ],
             ),
             const SizedBox(
@@ -107,29 +106,28 @@ class _HomePage2State extends State<HomePage2> {
                   if (snapshot.connectionState == ConnectionState.done) {
                     final assignedDocIDs = snapshot.data ?? [];
                     return ListView.builder(
-                      
                       itemCount: assignedDocIDs.length,
                       itemBuilder: (context, index) {
                         final documentId = assignedDocIDs[index];
                         final isChecked = isCheckedMap[documentId] ?? false;
-    
+
                         return GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) {
-                                return taskPage(documentId: documentId,);
+                                return taskPage(
+                                  documentId: documentId,
+                                );
                               },
                             ));
                           },
                           child: Container(
-                            
                             height: 80,
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             margin: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: const Color.fromARGB(255, 251, 252, 252),
-                              
                               boxShadow: const [
                                 BoxShadow(
                                   color: Color(0xFFB6C6D4),
@@ -170,18 +168,34 @@ class _HomePage2State extends State<HomePage2> {
                                   color: Colors.red,
                                   icon: const Icon(Icons.delete),
                                   onPressed: () async {
-                                    final result = await showDialog<bool>(context: context, builder: (context)=> AlertDialog(
-                                      title: const Text("Are you sure?"),
-                                      content: const Text("This will permanently delete this task"),
-                                      actions: [
-                                        TextButton(onPressed: () => Navigator.pop(context, false), child: const Text("cancel"),),
-                                        TextButton(onPressed: () => Navigator.pop(context, true), child: const Text("delete"),),
-                                      ],
-                                    ));
-                                    if (result == true){deleteTask(documentId);                                  
-                                    setState(() {
-                                      isCheckedMap.remove(documentId);
-                                    });}
+                                    final result = await showDialog<bool>(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              title:
+                                                  const Text("Are you sure?"),
+                                              content: const Text(
+                                                  "This will permanently delete this task"),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, false),
+                                                  child: const Text("cancel"),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, true),
+                                                  child: const Text("delete"),
+                                                ),
+                                              ],
+                                            ));
+                                    if (result == true) {
+                                      deleteTask(documentId);
+                                      setState(() {
+                                        isCheckedMap.remove(documentId);
+                                      });
+                                    }
                                   },
                                 ),
                               ],
