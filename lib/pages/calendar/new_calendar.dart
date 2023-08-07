@@ -6,6 +6,8 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../model/event.dart';
 import '../../components/event_item.dart';
 import './add_event.dart';
+import 'package:lottie/lottie.dart';
+
 
 class Calendar extends StatefulWidget {
   const Calendar({super.key});
@@ -75,7 +77,7 @@ class _Calendar extends State<Calendar> {
     return Scaffold(
       appBar: AppBar(title: const Text('Calendar App')),
       body: ListView(
-        children: [
+        children: [ /*  */
           TableCalendar(
             eventLoader: _getEventsForTheDay,
             calendarFormat: _calendarFormat,
@@ -169,6 +171,8 @@ class _Calendar extends State<Calendar> {
                   }
                 }),
           ),
+          
+
         ],
       ),
       floatingActionButton: FloatingActionButton(

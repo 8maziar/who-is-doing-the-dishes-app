@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'task_page.dart';
+import 'package:lottie/lottie.dart';
 
 class CompletedChores extends StatefulWidget {
   const CompletedChores({Key? key}) : super(key: key);
@@ -26,6 +27,8 @@ Future<List<String>> getCompletedDocIds() async {
 }
 
 class _CompletedChoresState extends State<CompletedChores> {
+  bool showAnimation = true;
+
   Future<String> getTaskName(String documentId) async {
     final taskSnapshot = await FirebaseFirestore.instance
         .collection('chores')
@@ -46,61 +49,67 @@ class _CompletedChoresState extends State<CompletedChores> {
       appBar: AppBar(
         title: const Text('Completed Chores'),
       ),
-      body: FutureBuilder<List<String>>(
-        future: getCompletedDocIds(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            final completedDocIDs = snapshot.data ?? [];
-            if (completedDocIDs.isEmpty) {
-              return const Center(child: Text('No completed tasks found.'));
-            }
-            return ListView.builder(
-              itemCount: completedDocIDs.length,
-              itemBuilder: (context, index) {
-                final documentId = completedDocIDs[index];
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return taskPage(documentId: documentId);
-                        },
-                      ),
-                    );
-                  },
-                  child: FutureBuilder<String>(
-                    future: getTaskName(documentId),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        final taskName = snapshot.data ?? 'Unknown Task';
-                        return Container(
-                          
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: ListTile(
-                              textColor: Colors.white,
-                              titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
-                              tileColor: Color.fromARGB(255, 2, 197, 191),
-                              title: Text(taskName,
-                              ),
-                              
+      body: Column(
+        children: [
+          if (showAnimation)
+            Lottie.network('https://lottie.host/d3f7f0f2-0a7e-4727-9622-992729361764/jt3Uoi5a18.json', height: 250),
+          Expanded(
+            child: FutureBuilder<List<String>>(
+              future: getCompletedDocIds(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  showAnimation = false; // Hide the animation once the data is loaded
+                  final completedDocIDs = snapshot.data ?? [];
+                  if (completedDocIDs.isEmpty) {
+                    return const Center(child: Text('No completed tasks found.'));
+                  }
+                  return ListView.builder(
+                    itemCount: completedDocIDs.length,
+                    itemBuilder: (context, index) {
+                      final documentId = completedDocIDs[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return taskPage(documentId: documentId);
+                              },
                             ),
-                          ),
-                        );
-                      } else {
-                        return const ListTile(
-                          title: Text('Loading...'),
-                        );
-                      }
+                          );
+                        },
+                        child: FutureBuilder<String>(
+                          future: getTaskName(documentId),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              final taskName = snapshot.data ?? 'Unknown Task';
+                              return Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: ListTile(
+                                    textColor: Colors.white,
+                                    titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                                    tileColor: Color.fromARGB(255, 2, 197, 191),
+                                    title: Text(taskName),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return const ListTile(
+                                title: Text('Loading...'),
+                              );
+                            }
+                          },
+                        ),
+                      );
                     },
-                  ),
-                );
+                  );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
               },
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+            ),
+          ),
+        ],
       ),
     );
   }

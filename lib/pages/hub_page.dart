@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/pages/completed_chores.dart';
 import 'package:whos_doing_the_dishes/pages/create_new_chore.dart';
 import 'package:whos_doing_the_dishes/pages/home_page.dart';
-<<<<<<< HEAD
 import 'calendar/new_calendar.dart';
-=======
 import 'completed_chores.dart';
 import 'create_new_chore.dart';
-import 'calendar.dart';
->>>>>>> 0a91ff3 (.)
+
+
 
 
 class HomePage extends StatefulWidget {
