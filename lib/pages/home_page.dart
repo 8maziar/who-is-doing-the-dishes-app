@@ -11,11 +11,11 @@ class HomePage2 extends StatefulWidget {
   State<HomePage2> createState() => _HomePage2State();
 }
 
-final user = FirebaseAuth.instance.currentUser!;
+final User = FirebaseAuth.instance.currentUser!;
 Future<List<String>> getAssignedDocIds() async {
   final assignedDocs = await FirebaseFirestore.instance
       .collection('chores')
-      .where('assignedTo', isEqualTo: user.email)
+      .where('assignedTo', isEqualTo: User.email)
       .get();
 
   return assignedDocs.docs.map((doc) => doc.id).toList();
@@ -26,7 +26,7 @@ final userEmail = FirebaseAuth.instance.currentUser?.email;
 Future<List<String>> getCompletedDocIds() async {
   final completedDocs = await FirebaseFirestore.instance
       .collection('chores')
-      .where('assignedTo', isEqualTo: user.email)
+      .where('assignedTo', isEqualTo: User.email)
       .where('isDone', isEqualTo: true)
       .get();
 
