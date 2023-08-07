@@ -87,10 +87,10 @@ class _HomePage2State extends State<HomePage2> {
           const SizedBox(
             height: 40,
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("List of tasks for $userEmail",
+              Text("List of tasks",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ],
           ),
