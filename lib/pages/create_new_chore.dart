@@ -18,6 +18,7 @@ class _NewChoreState extends State<NewChore> {
   String? taskDescription;
   String? taskPriority;
   String? taskDeadline;
+  String? taskAssignedto;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +87,22 @@ class _NewChoreState extends State<NewChore> {
                         },
                       ),
                       const SizedBox(height: 20.0),
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                            icon: Icon(Icons.flag),
+                            hintText: "Choose a User",
+                            label: Text("Assigned To")),
+                        onChanged: (value) {
+                          taskAssignedto = value;
+                        },
+                      ),
+                      const SizedBox(height: 20.0),
                       DateTimeFormField(
                         decoration: const InputDecoration(
                           icon: Icon(Icons.calendar_month),
@@ -149,7 +166,8 @@ class _NewChoreState extends State<NewChore> {
                                   "priority": taskPriority,
                                   "deadline": taskDeadline,
                                   "isDone": false,
-                                  "timeOfCompletion": null
+                                  "timeOfCompletion": null,
+                                  "AssignedTo": taskAssignedto
                                 })
                                 .then(
                                   (value) => print('Task added'),
