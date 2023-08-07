@@ -76,18 +76,12 @@ class _HomePage2State extends State<HomePage2> {
       child: Column(
         children: [
           const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.menu_book_outlined,
-                size: 40,
-              ),
+              
               Text("Homepage",
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800)),
-              Icon(
-                Icons.notifications,
-                size: 40,
-              ),
+             
             ],
           ),
           const SizedBox(
