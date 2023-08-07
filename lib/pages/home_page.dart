@@ -71,118 +71,133 @@ class _HomePage2State extends State<HomePage2> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(40.0),
-      child: Column(
-        children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+    return Container(
+      color: Color.fromARGB(255, 216, 232, 245),
+      child: Padding(
+        padding: const EdgeInsets.all(40.0),
+        child: Column(
+          children: [
+            const Row(
               
-              Text("Homepage",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800)),
-             
-            ],
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text("List of tasks",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            child: FutureBuilder<List<String>>(
-              future: getAssignedDocIds(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  final assignedDocIDs = snapshot.data ?? [];
-                  return ListView.builder(
-                    itemCount: assignedDocIDs.length,
-                    itemBuilder: (context, index) {
-                      final documentId = assignedDocIDs[index];
-                      final isChecked = isCheckedMap[documentId] ?? false;
-
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return taskPage(documentId: documentId);
-                            },
-                          ));
-                        },
-                        child: Container(
-                          height: 80,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          margin: const EdgeInsets.only(bottom: 16),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0xFFB6C6D4),
-                                spreadRadius: -8,
-                                blurRadius: 10.0,
-                                offset: Offset(4, 4),
-                              ),
-                              BoxShadow(
-                                color: Color.fromRGBO(255, 255, 255, 0.5),
-                                blurRadius: 10,
-                                offset: Offset(-3, -4),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    value: isChecked,
-                                    onChanged: (bool? newValue) {
-                                      setState(() {
-                                        isCheckedMap[documentId] =
-                                            newValue ?? false;
-                                      });
-                                      if (isChecked == true) {
-                                        updateIsNotDone(documentId);
-                                      } else {
-                                        updateIsDone(documentId);
-                                      }
-                                    },
-                                  ),
-                                  GetChores(documentId: documentId),
-                                ],
-                              ),
-                              IconButton(
-                                color: Colors.red,
-                                icon: const Icon(Icons.delete),
-                                onPressed: () async {
-                                  await deleteTask(documentId);
-                                  setState(() {
-                                    isCheckedMap.remove(documentId);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                
+                Text("Homepage",
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800)),
+               
+              ],
             ),
-          )
-        ],
+            const SizedBox(
+              height: 40,
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("List of tasks",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: FutureBuilder<List<String>>(
+                future: getAssignedDocIds(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    final assignedDocIDs = snapshot.data ?? [];
+                    return ListView.builder(
+                      
+                      itemCount: assignedDocIDs.length,
+                      itemBuilder: (context, index) {
+                        final documentId = assignedDocIDs[index];
+                        final isChecked = isCheckedMap[documentId] ?? false;
+    
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return taskPage(documentId: documentId,);
+                              },
+                            ));
+                          },
+                          child: Container(
+                            
+                            height: 80,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color.fromARGB(255, 251, 252, 252),
+                              
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0xFFB6C6D4),
+                                  spreadRadius: -8,
+                                  blurRadius: 10.0,
+                                  offset: Offset(4, 4),
+                                ),
+                                BoxShadow(
+                                  color: Color.fromRGBO(255, 255, 255, 0.5),
+                                  blurRadius: 10,
+                                  offset: Offset(-3, -4),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: isChecked,
+                                      onChanged: (bool? newValue) {
+                                        setState(() {
+                                          isCheckedMap[documentId] =
+                                              newValue ?? false;
+                                        });
+                                        if (isChecked == true) {
+                                          updateIsNotDone(documentId);
+                                        } else {
+                                          updateIsDone(documentId);
+                                        }
+                                      },
+                                    ),
+                                    GetChores(documentId: documentId),
+                                  ],
+                                ),
+                                IconButton(
+                                  color: Colors.red,
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () async {
+                                    final result = await showDialog<bool>(context: context, builder: (context)=> AlertDialog(
+                                      title: const Text("Are you sure?"),
+                                      content: const Text("This will permanently delete this task"),
+                                      actions: [
+                                        TextButton(onPressed: () => Navigator.pop(context, false), child: const Text("cancel"),),
+                                        TextButton(onPressed: () => Navigator.pop(context, true), child: const Text("delete"),),
+                                      ],
+                                    ));
+                                    if (result == true){deleteTask(documentId);                                  
+                                    setState(() {
+                                      isCheckedMap.remove(documentId);
+                                    });}
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

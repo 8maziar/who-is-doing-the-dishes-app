@@ -74,102 +74,105 @@ class _Calendar extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Calendar App')),
-      body: ListView(
-        children: [
-          TableCalendar(
-            eventLoader: _getEventsForTheDay,
-            calendarFormat: _calendarFormat,
-            onFormatChanged: (format) {
-              setState(() {
-                _calendarFormat = format;
-              });
-            },
-            focusedDay: _focusedDay,
-            firstDay: _firstDay,
-            lastDay: _lastDay,
-            onPageChanged: (focusedDay) {
-              setState(() {
-                _focusedDay = focusedDay;
-              });
-              _loadFirestoreEvents();
-            },
-            selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
-            onDaySelected: (selectedDay, focusedDay) {
-              print(_events[selectedDay]);
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay;
-              });
-            },
-            calendarStyle: const CalendarStyle(
-              weekendTextStyle: TextStyle(
-                color: Colors.red,
-              ),
-              selectedDecoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Colors.red,
-              ),
-            ),
-            calendarBuilders: CalendarBuilders(
-              headerTitleBuilder: (context, day) {
-                return Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(day.toString()),
-                );
+      body: Container(
+        color: Color.fromARGB(255, 216, 232, 245),
+        child: ListView(
+          children: [
+            TableCalendar(
+              eventLoader: _getEventsForTheDay,
+              calendarFormat: _calendarFormat,
+              onFormatChanged: (format) {
+                setState(() {
+                  _calendarFormat = format;
+                });
               },
-            ),
-          ),
-          ..._getEventsForTheDay(_selectedDay).map(
-            (event) => EventItem(
-                event: event,
-                onTap: () async {
-                  final res = await Navigator.push<bool>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => EditEvent(
-                          firstDate: _firstDay,
-                          lastDate: _lastDay,
-                          event: event),
-                    ),
+              focusedDay: _focusedDay,
+              firstDay: _firstDay,
+              lastDay: _lastDay,
+              onPageChanged: (focusedDay) {
+                setState(() {
+                  _focusedDay = focusedDay;
+                });
+                _loadFirestoreEvents();
+              },
+              selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
+              onDaySelected: (selectedDay, focusedDay) {
+                print(_events[selectedDay]);
+                setState(() {
+                  _selectedDay = selectedDay;
+                  _focusedDay = focusedDay;
+                });
+              },
+              calendarStyle: const CalendarStyle(
+                weekendTextStyle: TextStyle(
+                  color: Colors.red,
+                ),
+                selectedDecoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Colors.red,
+                ),
+              ),
+              calendarBuilders: CalendarBuilders(
+                headerTitleBuilder: (context, day) {
+                  return Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(day.toString()),
                   );
-                  if (res ?? false) {
-                    _loadFirestoreEvents();
-                  }
                 },
-                onDelete: () async {
-                  final delete = await showDialog<bool>(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      title: const Text("Delete Event?"),
-                      content: const Text("Are you sure you want to delete?"),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context, false),
-                          style: TextButton.styleFrom(
-                            foregroundColor: Colors.black,
+              ),
+            ),
+            ..._getEventsForTheDay(_selectedDay).map(
+              (event) => EventItem(
+                  event: event,
+                  onTap: () async {
+                    final res = await Navigator.push<bool>(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => EditEvent(
+                            firstDate: _firstDay,
+                            lastDate: _lastDay,
+                            event: event),
+                      ),
+                    );
+                    if (res ?? false) {
+                      _loadFirestoreEvents();
+                    }
+                  },
+                  onDelete: () async {
+                    final delete = await showDialog<bool>(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text("Delete Event?"),
+                        content: const Text("Are you sure you want to delete?"),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, false),
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.black,
+                            ),
+                            child: const Text("No"),
                           ),
-                          child: const Text("No"),
-                        ),
-                        TextButton(
-                          onPressed: () => Navigator.pop(context, true),
-                          style: TextButton.styleFrom(
-                            foregroundColor: Colors.red,
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, true),
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.red,
+                            ),
+                            child: const Text("Yes"),
                           ),
-                          child: const Text("Yes"),
-                        ),
-                      ],
-                    ),
-                  );
-                  if (delete ?? false) {
-                    await FirebaseFirestore.instance
-                        .collection('chores')
-                        .doc(event.id)
-                        .delete();
-                    _loadFirestoreEvents();
-                  }
-                }),
-          ),
-        ],
+                        ],
+                      ),
+                    );
+                    if (delete ?? false) {
+                      await FirebaseFirestore.instance
+                          .collection('chores')
+                          .doc(event.id)
+                          .delete();
+                      _loadFirestoreEvents();
+                    }
+                  }),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
