@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(2, 109, 197, 1),
+      backgroundColor: const Color.fromRGBO(2, 109, 197, 1),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -112,7 +112,8 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       'Forgot Password?',
-                      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     ),
                   ],
                 ),
@@ -137,7 +138,8 @@ class _LoginPageState extends State<LoginPage> {
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
                         'Or continue with',
-                        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255)),
                       ),
                     ),
                     Expanded(
