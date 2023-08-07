@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/services/auth_service.dart';
 
@@ -20,41 +21,34 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final usernameController = TextEditingController();
+  String? mtoken = " ";
 
 //user sign in method
   void signUserUp() async {
-// show loading circle
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
-//try sign in
+    // try sign in
     try {
       if (passwordController.text == confirmPasswordController.text) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
-        addUserDetails(
-          usernameController.text.trim(),
-          emailController.text.trim(),
-        );
-        // ignore: use_build_context_synchronously
-        Navigator.pop(context);
+
+        String? token = await getToken();
+        if (token != null) {
+          addUserDetails(
+            usernameController.text.trim(),
+            emailController.text.trim(),
+            token,
+          );
+        } else {
+          showErrorMessage('Failed to get FCM token. Please try again later.');
+        }
       } else {
         showErrorMessage('Passwords don\'t match');
       }
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
-      //show err
       showErrorMessage(e.code);
     }
-    //stop the circle
   }
 
   //wrong email message
@@ -63,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: const Color.fromARGB(255, 190, 175, 8),
           title: Center(
             child: Text(
               message,
@@ -75,10 +69,23 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Future addUserDetails(String name, String email) async {
+//code for FCM Token
+  Future<String?> getToken() async {
+    try {
+      String? token = await FirebaseMessaging.instance.getToken();
+      print("My Token is $token");
+      return token;
+    } catch (e) {
+      print("Error getting FCM token: $e");
+      return null;
+    }
+  }
+
+  Future addUserDetails(String name, String email, String token) async {
     await FirebaseFirestore.instance.collection('users').add({
       'name': name,
       'email': email,
+      'token': token,
     });
   }
 

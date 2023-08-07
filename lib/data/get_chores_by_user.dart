@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class GetChores extends StatelessWidget {
   final String documentId;
 
-  GetChores({required this.documentId});
+  const GetChores({super.key, required this.documentId});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,12 @@ class GetChores extends StatelessWidget {
 
           // Check if the 'assignedTo' field matches the current user's UID
           if (data!['assignedTo'] == user!.email) {
-            print(user);
+            
             return Text('${data['title']}');
             // If not assigned to the current user, return an empty container
           }
         }
-        return Text('Loading...');
+        return const Text('Loading...');
       }),
     );
   }
