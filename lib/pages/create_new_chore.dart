@@ -174,7 +174,7 @@ class _NewChoreState extends State<NewChore> {
                                       "deadline": taskDeadline,
                                       "isDone": false,
                                       "timeOfCompletion": null,
-                                      "AssignedTo": taskAssignedto
+                                      "assignedTo": taskAssignedto
                                     })
                                     .then(
                                       (value) => print('Task added'),

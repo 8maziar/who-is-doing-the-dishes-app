@@ -81,10 +81,13 @@ class _HomePage2State extends State<HomePage2> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
                 Text(
                   "Homepage",
                   style: GoogleFonts.roboto(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
+
+                
               ],
             ),
             const SizedBox(
