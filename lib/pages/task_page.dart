@@ -1,6 +1,7 @@
-// ignore_for_file: camel_case_types, use_build_context_synchronously
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
 
 class taskPage extends StatelessWidget {
   final String documentId;
@@ -36,39 +37,44 @@ class taskPage extends StatelessWidget {
               if (snapshot.hasData) {
                 final choreData = snapshot.data!.data();
                 if (choreData != null) {
-                  // Display the chore data here
                   return SingleChildScrollView(
-                    child: Card(
-                      elevation: 4.0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: choreData.entries.map((entry) {
-                            final key = entry.key;
-                            final value = entry.value;
-                            return ListTile(
-                              title: Text(
-                                '$key:',
-                                style: const TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(
-                                '$value',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              trailing: IconButton(
-                                icon: const Icon(Icons.edit),
-                                onPressed: () {
-                                  _showUpdateDialog(context, key, value);
-                                  print('edit');
-                                },
-                              ),
-                            );
-                          }).toList(),
+                    child: Column(
+                      children: [
+                        /* Lottie.network('https://lottie.host/a2105267-7e4c-4929-80e9-70c93f46174f/sauecQ8A7W.json', height: 200), */
+                        Lottie.network('https://lottie.host/1839d2f6-41e1-4b4e-9adc-ae475a725e23/pOzvog6OuM.json', height: 250),
+                        Card(
+                          elevation: 4.0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: choreData.entries.map((entry) {
+                                final key = entry.key;
+                                final value = entry.value;
+                                return ListTile(
+                                  title: Text(
+                                    '$key:',
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  subtitle: Text(
+                                    '$value',
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                  trailing: IconButton(
+                                    icon: const Icon(Icons.edit),
+                                    onPressed: () {
+                                      _showUpdateDialog(context, key, value);
+                                      print('edit');
+                                    },
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   );
                 }

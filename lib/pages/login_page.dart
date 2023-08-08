@@ -5,6 +5,9 @@ import 'package:whos_doing_the_dishes/services/auth_service.dart';
 import '../components/mybutton.dart';
 import '../components/mytextfield.dart';
 import '../components/squaretile.dart';
+import 'package:lottie/lottie.dart';
+
+
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -82,7 +85,8 @@ class _LoginPageState extends State<LoginPage> {
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-              Image.asset('lib/images/logo1.png'),
+                Lottie.network('https://lottie.host/3fd7a22b-0976-4d57-891c-da47734ea964/M5erNgADpI.json', height: 250),
+
               const SizedBox(height: 10),
               const Text(
                 'The Dishes?',
