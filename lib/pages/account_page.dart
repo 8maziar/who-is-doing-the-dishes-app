@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AccountPage extends StatelessWidget {
+  const AccountPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Get the currently logged-in user
@@ -19,11 +21,9 @@ class AccountPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                'lib/images/avatar.jpg',
-                width: 100,
-                height: 100,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.asset("lib/images/profile.jpg", height: 200),
               ),
               const SizedBox(height: 20),
               const SizedBox(height: 10),

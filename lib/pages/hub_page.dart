@@ -19,11 +19,11 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   final screens = [
-    HomePage2(),
-    Calendar(),
-    NewChore(),
-    AccountPage(),
-    CompletedChores()
+    const HomePage2(),
+    const Calendar(),
+    const NewChore(),
+    const AccountPage(),
+    const CompletedChores()
   ];
 
   //get docs
