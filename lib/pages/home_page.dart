@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:whos_doing_the_dishes/pages/task_page.dart';
 import '../data/get_chores_by_user.dart';
 
@@ -77,23 +78,25 @@ class _HomePage2State extends State<HomePage2> {
         padding: const EdgeInsets.all(40.0),
         child: Column(
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Homepage",
-                    style:
-                        TextStyle(fontSize: 26, fontWeight: FontWeight.w800)),
+                Text(
+                  "Homepage",
+                  style: GoogleFonts.roboto(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             const SizedBox(
               height: 40,
             ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("List of tasks",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Text(
+                  "List of tasks",
+                  style: GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             const SizedBox(
@@ -115,7 +118,7 @@ class _HomePage2State extends State<HomePage2> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) {
-                                return taskPage(
+                                return TaskPage(
                                   documentId: documentId,
                                 );
                               },
@@ -130,13 +133,13 @@ class _HomePage2State extends State<HomePage2> {
                               color: const Color.fromARGB(255, 251, 252, 252),
                               boxShadow: const [
                                 BoxShadow(
-                                  color: Color(0xFFB6C6D4),
+                                  color: Color.fromRGBO(182, 198, 212, 1),
                                   spreadRadius: -8,
                                   blurRadius: 10.0,
                                   offset: Offset(4, 4),
                                 ),
                                 BoxShadow(
-                                  color: Color.fromRGBO(255, 255, 255, 0.5),
+                                  color: Color.fromRGBO(255, 255, 255, 0.49),
                                   blurRadius: 10,
                                   offset: Offset(-3, -4),
                                 ),
@@ -165,7 +168,7 @@ class _HomePage2State extends State<HomePage2> {
                                   ],
                                 ),
                                 IconButton(
-                                  color: Colors.red,
+                                  color: const Color.fromRGBO(244, 67, 54, 1),
                                   icon: const Icon(Icons.delete),
                                   onPressed: () async {
                                     final result = await showDialog<bool>(

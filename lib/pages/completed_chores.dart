@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'task_page.dart';
 import 'package:lottie/lottie.dart';
-
 
 class CompletedChores extends StatefulWidget {
   const CompletedChores({Key? key}) : super(key: key);
@@ -49,7 +49,9 @@ class _CompletedChoresState extends State<CompletedChores> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Completed Chores'),
+        title: Text('Completed Chores',
+            style:
+                GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.bold)),
       ),
       body: Column(
         children: [
@@ -63,10 +65,14 @@ class _CompletedChoresState extends State<CompletedChores> {
               future: getCompletedDocIds(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  showAnimation = false; // Hide the animation once the data is loaded
+                  showAnimation =
+                      false; // Hide the animation once the data is loaded
                   final completedDocIDs = snapshot.data ?? [];
                   if (completedDocIDs.isEmpty) {
-                    return const Center(child: Text('No completed tasks found.'));
+                    return Center(
+                        child: Text('No completed tasks found.',
+                            style: GoogleFonts.roboto(
+                                fontSize: 24, fontWeight: FontWeight.w400)));
                   }
                   return ListView.builder(
                     itemCount: completedDocIDs.length,
@@ -77,7 +83,7 @@ class _CompletedChoresState extends State<CompletedChores> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (BuildContext context) {
-                                return taskPage(documentId: documentId);
+                                return TaskPage(documentId: documentId);
                               },
                             ),
                           );
@@ -85,7 +91,8 @@ class _CompletedChoresState extends State<CompletedChores> {
                         child: FutureBuilder<String>(
                           future: getTaskName(documentId),
                           builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.done) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
                               final taskName = snapshot.data ?? 'Unknown Task';
                               return Column(
                                 children: [
@@ -93,8 +100,10 @@ class _CompletedChoresState extends State<CompletedChores> {
                                     padding: const EdgeInsets.all(10.0),
                                     child: ListTile(
                                       textColor: Colors.white,
-                                      titleTextStyle: const TextStyle(fontWeight: FontWeight.bold),
-                                      tileColor: const Color.fromARGB(255, 2, 197, 191),
+                                      titleTextStyle: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      tileColor: const Color.fromARGB(
+                                          255, 2, 197, 191),
                                       title: Text(taskName),
                                     ),
                                   ),
@@ -108,8 +117,7 @@ class _CompletedChoresState extends State<CompletedChores> {
                                     ),
                                     onPressed: () async {
                                       await Share.share(
-                                        'I\'ve done this tasks\n\n$taskName'
-                                      );
+                                          'I\'ve done this tasks\n\n$taskName');
                                     },
                                   ),
                                 ],
