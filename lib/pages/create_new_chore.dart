@@ -1,4 +1,3 @@
-import 'dart:js_interop';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +120,7 @@ class _NewChoreState extends State<NewChore> {
                         dateFormat: DateFormat('y/M/d, hh:mm'),
                         autovalidateMode: AutovalidateMode.always,
                         validator: (value) {
-                          if (value == null || value.isUndefined) {
+                          if (value == null) {
                             return 'Please select a date';
                           }
                           DateTime currentDate = DateTime.now();
