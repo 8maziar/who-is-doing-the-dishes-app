@@ -89,22 +89,20 @@ class _CompletedChoresState extends State<CompletedChores> {
                               final taskName = snapshot.data ?? 'Unknown Task';
                               return Column(
                                 children: [
-                                  Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: ListTile(
-                                        textColor: Colors.white,
-                                        titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
-                                        tileColor: Color.fromARGB(255, 2, 197, 191),
-                                        title: Text(taskName),
-                                      ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ListTile(
+                                      textColor: Colors.white,
+                                      titleTextStyle: const TextStyle(fontWeight: FontWeight.bold),
+                                      tileColor: const Color.fromARGB(255, 2, 197, 191),
+                                      title: Text(taskName),
                                     ),
                                   ),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      minimumSize: Size.fromHeight(52),
+                                      minimumSize: const Size.fromHeight(52),
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       'Share',
                                       style: TextStyle(fontSize: 28),
                                     ),

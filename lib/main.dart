@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const AuthPage(),
         theme: ThemeData(
-          scaffoldBackgroundColor: Color.fromARGB(255, 219, 228, 236),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 219, 228, 236),
 
         ));
 
