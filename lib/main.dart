@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const AuthPage(),
         theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromARGB(255, 216, 232, 245),
+          scaffoldBackgroundColor: Color.fromARGB(255, 219, 228, 236),
+
         ));
   }
 }
