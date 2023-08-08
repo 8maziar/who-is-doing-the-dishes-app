@@ -89,7 +89,7 @@ class _HomePage2State extends State<HomePage2> {
               height: 40,
             ),
             const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("List of tasks",
                     style:
