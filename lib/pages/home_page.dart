@@ -82,7 +82,7 @@ class _HomePage2State extends State<HomePage2> {
               children: [
                 Text("Homepage",
                     style:
-                        TextStyle(fontSize: 26, fontWeight: FontWeight.w800)),
+                        TextStyle(fontSize: 26, fontWeight: FontWeight.w800,  decoration: TextDecoration.underline)),
               ],
             ),
             const SizedBox(

@@ -93,6 +93,7 @@ class _CompletedChoresState extends State<CompletedChores> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: ListTile(
+                                        trailing: const Icon(Icons.check),
                                         textColor: Colors.white,
                                         titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
                                         tileColor: Color.fromARGB(255, 2, 197, 191),
