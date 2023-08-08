@@ -20,10 +20,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: const AuthPage(),
-        theme: ThemeData(
-          scaffoldBackgroundColor: Color.fromARGB(255, 216, 232, 245),
-        ));
+      debugShowCheckedModeBanner: false,
+      home: const AuthPage(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color.fromARGB(255, 216, 232, 245),
+      ),
+    );
   }
 }
