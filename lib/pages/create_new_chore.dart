@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
 import 'package:intl/intl.dart';
 import 'package:whos_doing_the_dishes/pages/hub_page.dart';
+import 'package:lottie/lottie.dart';
+
 
 class NewChore extends StatefulWidget {
   const NewChore({super.key});
@@ -18,6 +20,7 @@ class _NewChoreState extends State<NewChore> {
   String? taskDescription;
   String? taskPriority;
   String? taskDeadline;
+  String? taskAssignedto;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +33,16 @@ class _NewChoreState extends State<NewChore> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: [
+            children: [  /* Lottie.network('https://lottie.host/65c922ef-a041-49b5-ad59-7b3464c1e486/iADreSGlnY.json', height: 250), */
+                          Lottie.network('https://lottie.host/249c98f0-b826-447a-8fa5-8375e1cb5eb9/Ej2gVbE0Me.json', height: 230),
+                          
               Padding(
                 padding: const EdgeInsets.all(30),
                 child: Form(
                   key: _formKey,
                   autovalidateMode: AutovalidateMode.disabled,
                   child: Column(
-                    children: [
+                    children: [ 
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -83,6 +88,22 @@ class _NewChoreState extends State<NewChore> {
                             label: Text("Priority")),
                         onChanged: (value) {
                           taskPriority = value;
+                        },
+                      ),
+                      const SizedBox(height: 20.0),
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                            icon: Icon(Icons.flag),
+                            hintText: "Choose a User",
+                            label: Text("Assigned To")),
+                        onChanged: (value) {
+                          taskAssignedto = value;
                         },
                       ),
                       const SizedBox(height: 20.0),
@@ -149,7 +170,8 @@ class _NewChoreState extends State<NewChore> {
                                   "priority": taskPriority,
                                   "deadline": taskDeadline,
                                   "isDone": false,
-                                  "timeOfCompletion": null
+                                  "timeOfCompletion": null,
+                                  "AssignedTo": taskAssignedto
                                 })
                                 .then(
                                   (value) => print('Task added'),
