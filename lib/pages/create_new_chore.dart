@@ -3,6 +3,7 @@ import 'dart:js_interop';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:whos_doing_the_dishes/pages/hub_page.dart';
 import 'package:lottie/lottie.dart';
@@ -30,7 +31,7 @@ class _NewChoreState extends State<NewChore> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('New Task'),
+          title: Text('New Task', style: GoogleFonts.roboto(fontSize: 24, fontWeight: FontWeight.bold)),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -54,7 +55,7 @@ class _NewChoreState extends State<NewChore> {
                         },
                         decoration: const InputDecoration(
                             icon: Icon(Icons.task),
-                            hintText: "What is your task?",
+                            hintText: "What is your task",
                             label: Text("Task")),
                         onChanged: (value) {
                           taskTitle = value;
