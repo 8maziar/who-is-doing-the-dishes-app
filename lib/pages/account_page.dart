@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../components/task_tile.dart';
+import "package:google_fonts/google_fonts.dart";
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -13,7 +14,10 @@ class AccountPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 219, 228, 236),
       appBar: AppBar(
-        title: const Text('Account'),
+        title: Text(
+          'Account',
+          style: GoogleFonts.roboto(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

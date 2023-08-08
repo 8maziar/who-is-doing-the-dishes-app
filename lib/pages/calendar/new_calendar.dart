@@ -1,13 +1,12 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:whos_doing_the_dishes/pages/calendar/edit_event.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../model/event.dart';
 import '../../components/event_item.dart';
 import './add_event.dart';
-import 'package:lottie/lottie.dart';
-
 
 class Calendar extends StatefulWidget {
   const Calendar({super.key});
@@ -75,7 +74,10 @@ class _Calendar extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Calendar App')),
+      appBar: AppBar(
+          title: Text('Calendar',
+              style: GoogleFonts.roboto(
+                  fontSize: 24, fontWeight: FontWeight.bold))),
       body: Container(
         color: const Color.fromARGB(255, 219, 228, 236),
         child: ListView(
@@ -87,7 +89,6 @@ class _Calendar extends State<Calendar> {
                 setState(() {
                   _calendarFormat = format;
                 });
-
               },
               focusedDay: _focusedDay,
               firstDay: _firstDay,
@@ -162,7 +163,6 @@ class _Calendar extends State<Calendar> {
                             ),
                             child: const Text("Yes"),
                           ),
-
                         ],
                       ),
                     );
@@ -177,7 +177,6 @@ class _Calendar extends State<Calendar> {
             ),
           ],
         ),
-
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {

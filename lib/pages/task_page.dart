@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 
-class taskPage extends StatelessWidget {
+class TaskPage extends StatelessWidget {
   final String documentId;
-  const taskPage({required this.documentId, Key? key}) : super(key: key);
+  const TaskPage({required this.documentId, Key? key}) : super(key: key);
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getChoreData() {
     return FirebaseFirestore.instance

@@ -5,7 +5,6 @@ import 'package:whos_doing_the_dishes/pages/create_new_chore.dart';
 import 'package:whos_doing_the_dishes/pages/home_page.dart';
 import 'package:whos_doing_the_dishes/pages/account_page.dart';
 
-
 import 'calendar/new_calendar.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 247, 247, 247),
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(2, 109, 197, 1),
+        backgroundColor: const Color.fromARGB(255, 2, 109, 197),
         actions: [
           IconButton(
             onPressed: signUserOut,
@@ -55,25 +54,30 @@ class _HomePageState extends State<HomePage> {
         },
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Color.fromRGBO(2, 109, 197, 1)),
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Color.fromARGB(255, 2, 109, 197),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today),
-              label: 'Calendar',
-              backgroundColor: Color.fromARGB(255, 46, 135, 229)),
+            icon: Icon(Icons.calendar_today),
+            label: 'Calendar',
+            backgroundColor: Color.fromARGB(255, 46, 135, 229),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add, size: 40),
-              label: 'Add',
-              backgroundColor: Color.fromARGB(255, 24, 179, 86)),
+            icon: Icon(Icons.add, size: 40),
+            label: 'Add',
+            backgroundColor: Color.fromARGB(255, 24, 179, 86),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: 'Account',
-              backgroundColor: Color.fromARGB(255, 39, 162, 176)),
+            icon: Icon(Icons.account_circle),
+            label: 'Account',
+            backgroundColor: Color.fromARGB(255, 39, 162, 176),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark),
-              label: 'Completed',
-              backgroundColor: Color.fromARGB(255, 2, 197, 191)),
+            icon: Icon(Icons.bookmark),
+            label: 'Completed',
+            backgroundColor: Color.fromARGB(255, 2, 197, 191),
+          ),
         ],
       ),
     );
