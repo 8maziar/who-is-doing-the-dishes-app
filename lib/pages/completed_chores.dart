@@ -110,7 +110,7 @@ class _CompletedChoresState extends State<CompletedChores> {
                                   ),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size.fromHeight(52),
+                                      minimumSize: const Size(150, 52),
                                     ),
                                     child: const Text(
                                       'Share',
