@@ -103,7 +103,7 @@ class _NewChoreState extends State<NewChore> {
                         },
                         decoration: const InputDecoration(
                             icon: Icon(Icons.flag),
-                            hintText: "Choose a User",
+                            hintText: "Enter user's email",
                             label: Text("Assigned To")),
                         onChanged: (value) {
                           taskAssignedto = value;
