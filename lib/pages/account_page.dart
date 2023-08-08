@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../components/task_tile.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -16,21 +17,33 @@ class AccountPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Center(
+        child: Align(
+          alignment: Alignment.topCenter,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.asset("lib/images/profile.jpg", height: 200),
+              Container(
+                height: 300,
+                width: 300,
+                margin: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    image: const DecorationImage(
+                        image: AssetImage('lib/images/profile.jpg'),
+                        fit: BoxFit.cover),
+                    border: Border.all(color: Colors.blue, width: 10),
+                    borderRadius: BorderRadius.circular(200)),
+
               ),
-              const SizedBox(height: 20),
-              const SizedBox(height: 10),
+              const SizedBox(height: 30),
               Text(
-                'Email: ${user?.email ?? 'N/A'}',
-                style: const TextStyle(fontSize: 16),
+                user?.email ?? 'N/A',
+                style: const TextStyle(fontSize: 32),
               ),
+              const SizedBox(height: 10),
+              const TaskTile(userTask: "Do The Dishes"),
+              const SizedBox(height: 10),
+              const TaskTile(userTask: "Wash The Dog"),
+              const SizedBox(height: 10),
+              const TaskTile(userTask: "Do The Groceries"),
             ],
           ),
         ),
