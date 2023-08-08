@@ -38,7 +38,11 @@ Things to include in the README...
 
 Stick in your gitHub handles here...
 
-5. Include Credits  
+Alexander Croden
+gitHub username: C43NK0
+
+
+5. Include Credits:  
       if you followed tutorials or referenced a certain material that might help the user to build that particular project, include links to those here as well.
 
 
