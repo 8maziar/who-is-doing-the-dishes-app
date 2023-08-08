@@ -15,36 +15,39 @@ class AccountPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Account'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Column(
-            children: [
-              Container(
-                height: 300,
-                width: 300,
-                margin: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                    image: const DecorationImage(
-                        image: AssetImage('lib/images/profile.jpg'),
-                        fit: BoxFit.cover),
-                    border: Border.all(color: Colors.blue, width: 10),
-                    borderRadius: BorderRadius.circular(200)),
-
-              ),
-              const SizedBox(height: 30),
-              Text(
-                user?.email ?? 'N/A',
-                style: const TextStyle(fontSize: 32),
-              ),
-              const SizedBox(height: 10),
-              const TaskTile(userTask: "Do The Dishes"),
-              const SizedBox(height: 10),
-              const TaskTile(userTask: "Wash The Dog"),
-              const SizedBox(height: 10),
-              const TaskTile(userTask: "Do The Groceries"),
-            ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Column(
+              children: [
+                Container(
+                  height: 300,
+                  width: 300,
+                  margin: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      image: const DecorationImage(
+                          image: AssetImage('lib/images/profile.jpg'),
+                          fit: BoxFit.cover),
+                      border: Border.all(color: Colors.blue, width: 10),
+                      borderRadius: BorderRadius.circular(200)),
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  user?.email ?? 'N/A',
+                  style: const TextStyle(fontSize: 32),
+                ),
+                const SizedBox(height: 10),
+                const TaskTile(userTask: "Do The Dishes"),
+                const SizedBox(height: 10),
+                const TaskTile(userTask: "Wash The Dog"),
+                const SizedBox(height: 10),
+                const TaskTile(userTask: "Do The Groceries"),
+                const SizedBox(height: 10),
+                const TaskTile(userTask: "Take The Kids To School"),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,10 +1,11 @@
+import 'dart:js_interop';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
 import 'package:intl/intl.dart';
 import 'package:whos_doing_the_dishes/pages/hub_page.dart';
 import 'package:lottie/lottie.dart';
-
 
 class NewChore extends StatefulWidget {
   const NewChore({super.key});
@@ -33,20 +34,21 @@ class _NewChoreState extends State<NewChore> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: [  /* Lottie.network('https://lottie.host/65c922ef-a041-49b5-ad59-7b3464c1e486/iADreSGlnY.json', height: 250), */
-                          Lottie.network('https://lottie.host/249c98f0-b826-447a-8fa5-8375e1cb5eb9/Ej2gVbE0Me.json', height: 230),
-                          
+            children: [
+              Lottie.network(
+                  'https://lottie.host/249c98f0-b826-447a-8fa5-8375e1cb5eb9/Ej2gVbE0Me.json',
+                  height: 230),
               Padding(
                 padding: const EdgeInsets.all(30),
                 child: Form(
                   key: _formKey,
                   autovalidateMode: AutovalidateMode.disabled,
                   child: Column(
-                    children: [ 
+                    children: [
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
+                            return 'Please enter a task';
                           }
                           return null;
                         },
@@ -62,7 +64,7 @@ class _NewChoreState extends State<NewChore> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
+                            return 'Please enter a description';
                           }
                           return null;
                         },
@@ -78,7 +80,7 @@ class _NewChoreState extends State<NewChore> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
+                            return 'Please enter a priority level';
                           }
                           return null;
                         },
@@ -118,7 +120,7 @@ class _NewChoreState extends State<NewChore> {
                         dateFormat: DateFormat('y/M/d, hh:mm'),
                         autovalidateMode: AutovalidateMode.always,
                         validator: (value) {
-                          if (value == null) {
+                          if (value == null || value.isUndefined) {
                             return 'Please select a date';
                           }
                           DateTime currentDate = DateTime.now();
@@ -138,50 +140,61 @@ class _NewChoreState extends State<NewChore> {
                         initialDate: DateTime.now(),
                       ),
                       const SizedBox(height: 20.0),
-                      ElevatedButton(
-                          onPressed: () {
-                            _formKey.currentState!.validate();
-                            if (_formKey.currentState!.validate()) {
-                              print('Form is valid');
-                            } else {
-                              print('Form is not valid');
-                            }
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                action: SnackBarAction(
-                                  label: 'Added',
-                                  onPressed: () {},
-                                ),
-                                content: const Text('Task Created!'),
-                                duration: const Duration(milliseconds: 5000),
-                                width: 300.0,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                ),
-                                behavior: SnackBarBehavior.floating,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                              ),
-                            );
-                            chores
-                                .add({
-                                  'title': taskTitle,
-                                  'description': taskDescription,
-                                  "priority": taskPriority,
-                                  "deadline": taskDeadline,
-                                  "isDone": false,
-                                  "timeOfCompletion": null,
-                                  "AssignedTo": taskAssignedto
-                                })
-                                .then(
-                                  (value) => print('Task added'),
-                                )
-                                .catchError((error) => print(error));
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    action: SnackBarAction(
+                                      label: 'Added',
+                                      onPressed: () {},
+                                    ),
+                                    content: const Text('Task Created!'),
+                                    duration:
+                                        const Duration(milliseconds: 5000),
+                                    width: 300.0,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0,
+                                    ),
+                                    behavior: SnackBarBehavior.floating,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                  ),
+                                );
+                                chores
+                                    .add({
+                                      'title': taskTitle,
+                                      'description': taskDescription,
+                                      "priority": taskPriority,
+                                      "deadline": taskDeadline,
+                                      "isDone": false,
+                                      "timeOfCompletion": null,
+                                      "AssignedTo": taskAssignedto
+                                    })
+                                    .then(
+                                      (value) => print('Task added'),
+                                    )
+                                    .catchError((error) => print(error));
 
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const HomePage()));
-                          },
-                          child: const Text("Create Task")),
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const HomePage()));
+                              }
+                            },
+                            child: const Text("Create Task"),
+                          ),
+                          const SizedBox(width: 25),
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const HomePage()));
+                              },
+                              child: const Text("Cancel"))
+                        ],
+                      )
                     ],
                   ),
                 ),

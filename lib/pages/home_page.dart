@@ -72,7 +72,7 @@ class _HomePage2State extends State<HomePage2> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 219, 228, 236),
+      color: const Color.fromARGB(255, 219, 228, 236),
       child: Padding(
         padding: const EdgeInsets.all(40.0),
         child: Column(
