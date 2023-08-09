@@ -83,7 +83,8 @@ class _AccountPageState extends State<AccountPage> {
                             final selectedImage = await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const AvatarSelectionPage(),
+                                builder: (context) =>
+                                    const AvatarSelectionPage(),
                               ),
                             );
 
@@ -107,7 +108,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
 
               /*  
-                     FRIENDS: 
+                    FRIENDS: 
                       Positioned(
                           top: MediaQuery.of(context).size.height / 2 - 30, // Vertically centered
                           right: 16.0, // Aligned to the right side

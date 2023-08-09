@@ -25,8 +25,6 @@ class _HomePageState extends State<HomePage> {
     const CompletedChores()
   ];
 
-  //get docs
-
   void signUserOut() {
     FirebaseAuth.instance.signOut();
   }
