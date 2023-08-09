@@ -7,11 +7,11 @@ A project to help get those pesky chores done fairly.
    
 This project uses **Dart**, **Flutter** and **Firebase** to create a useful, mobile-friendly application to help users manage their household chores. The user can register through either e-mail or Google sign-in, then, after creating an account using a log-in/authentication process, users can see their assigned tasks and by when they need completing.  They can also assign tasks to both themselves and other users in the household and can be notified of this via push notifications.  They can see which chores are the most urgent and need completing first and can mark tasks as complete, as well as being able to see all users' tasks through use the calendar feature. The user can also delete tasks if required.  They can then share their success with other household users upon completion of tasks along with sharing to other platforms, such as e-mail, SMS, Whatsapp, Facebook, etc.
 
--  **Dart** is a general-purpose programming language that can be used for a wide range of applications, including web development, server-side programming, and mobile app development.  Find out more about Dart here:  [https://dart.dev/](y)
+-  **Dart** is a general-purpose programming language that can be used for a wide range of applications, including web development, server-side programming, and mobile app development.  Find out more about Dart here:  [https://dart.dev/]
 
--  **Flutter** is an open source framework developed and supported by Google. Frontend and full-stack developers use Flutter to build an application's user interface (UI) for multiple platforms with a single codebase.  Find the documentation here:  [https://flutter.dev/](y)
+-  **Flutter** is an open source framework developed and supported by Google. Frontend and full-stack developers use Flutter to build an application's user interface (UI) for multiple platforms with a single codebase.  Find the documentation here:  [https://flutter.dev/]
 
-- **Firebase** is a set of backend cloud computing services and application development platforms provided by Google. It hosts databases, services, authentication, and integration for a variety of applications, including Android, iOS, JavaScript, Node.js, Java, Unity, PHP, and C++.  Find out more about how to initialise and use Firebase here: [https://firebase.google.com/](y)
+- **Firebase** is a set of backend cloud computing services and application development platforms provided by Google. It hosts databases, services, authentication, and integration for a variety of applications, including Android, iOS, JavaScript, Node.js, Java, Unity, PHP, and C++.  Find out more about how to initialise and use Firebase here: [https://firebase.google.com/]
 
 
 **What challenges did we face?**  
@@ -49,8 +49,8 @@ Futute releases will include:
 ##### Authors:
 
 Alexander Croden,
-gitHub [https://github.com/C43NK0](y)
+gitHub [https://github.com/C43NK0]
 
 Mark Lovejoy,
-gitHub: [https://github.com/marklovejoydev](y)
+gitHub: [https://github.com/marklovejoydev]
 
