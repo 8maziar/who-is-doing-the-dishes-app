@@ -54,3 +54,5 @@ gitHub [https://github.com/C43NK0]
 Mark Lovejoy,
 gitHub: [https://github.com/marklovejoydev]
 
+Hersh Thakur,
+github: [https://github.com/HTJoker]
