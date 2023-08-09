@@ -8,10 +8,6 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
-
-  /*await FirebaseMessaging.instance.getInitialMessage();
-  await pushNotifications().initNotifications();
-  runApp(const MyApp());*/
 }
 
 class MyApp extends StatelessWidget {
@@ -20,15 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-      
-
-        debugShowCheckedModeBanner: false,
-        home: const AuthPage(),
-        theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromARGB(255, 219, 228, 236),
-
-        ));
-
+      debugShowCheckedModeBanner: false,
+      home: const AuthPage(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color.fromARGB(255, 219, 228, 236),
+      ),
+    );
   }
 }

@@ -23,9 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final usernameController = TextEditingController();
   String? mtoken = " ";
 
-//user sign in method
   void signUserUp() async {
-    // try sign in
     try {
       if (passwordController.text == confirmPasswordController.text) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -51,7 +49,6 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  //wrong email message
   void showErrorMessage(String message) {
     showDialog(
       context: context,
@@ -69,7 +66,6 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-//code for FCM Token
   Future<String?> getToken() async {
     try {
       String? token = await FirebaseMessaging.instance.getToken();
@@ -100,9 +96,9 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               const SizedBox(height: 10),
               Lottie.network(
-              'https://lottie.host/a8166ce2-b1fb-4a16-90a6-328aeef185e1/w8HrfKFQ3Q.json',
-              height: 250,
-            ),
+                'https://lottie.host/a8166ce2-b1fb-4a16-90a6-328aeef185e1/w8HrfKFQ3Q.json',
+                height: 250,
+              ),
               const SizedBox(height: 10),
               const Text(
                 'Let\'s create an account',
@@ -156,7 +152,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
                         'Or continue with',
-                        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255)),
                       ),
                     ),
                     Expanded(

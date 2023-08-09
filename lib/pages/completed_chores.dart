@@ -66,8 +66,7 @@ class _CompletedChoresState extends State<CompletedChores> {
               future: getCompletedDocIds(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  showAnimation =
-                      false; // Hide the animation once the data is loaded
+                  showAnimation = false;
                   final completedDocIDs = snapshot.data ?? [];
                   if (completedDocIDs.isEmpty) {
                     return Center(
@@ -101,16 +100,13 @@ class _CompletedChoresState extends State<CompletedChores> {
                                 ConnectionState.done) {
                               final taskName = snapshot.data ?? 'Unknown Task';
                               return Card(
-                                color: const Color.fromARGB(255, 2, 197,
-                                    191), // Background color for the entire card
+                                color: const Color.fromARGB(255, 2, 197, 191),
                                 child: ExpansionTile(
                                   title: Row(
                                     children: [
                                       const Icon(Icons.expand_more,
-                                          color: Colors
-                                              .white), // Unfold arrow icon
-                                      const SizedBox(
-                                          width: 8), // Add some spacing
+                                          color: Colors.white),
+                                      const SizedBox(width: 8),
                                       Text(
                                         taskName,
                                         style: const TextStyle(
