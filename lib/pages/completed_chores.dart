@@ -139,7 +139,7 @@ class _CompletedChoresState extends State<CompletedChores> {
                                           final choreData =
                                               snapshot.data!.data();
                                           if (choreData != null) {
-                                            final imageUrl = choreData['image'];
+                                            final imageUrl = choreData['image'] as String?;
                                             return Padding(
                                               padding:
                                                   const EdgeInsets.all(3.0),
@@ -147,7 +147,7 @@ class _CompletedChoresState extends State<CompletedChores> {
                                                 borderRadius:
                                                     BorderRadius.circular(5.0),
                                                 child: Image.network(
-                                                  imageUrl,
+                                                  imageUrl ?? 'https://images.unsplash.com/photo-1496262967815-132206202600?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1223&q=80',
                                                   height: 150,
                                                   width: MediaQuery.of(context)
                                                       .size
