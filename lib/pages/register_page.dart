@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:whos_doing_the_dishes/services/auth_service.dart';
-
+import 'package:lottie/lottie.dart';
 import '../components/mybutton.dart';
 import '../components/mytextfield.dart';
 import '../components/squaretile.dart';
@@ -99,7 +99,10 @@ class _RegisterPageState extends State<RegisterPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 10),
-              Image.asset('lib/images/logo1.png'),
+              Lottie.network(
+              'https://lottie.host/a8166ce2-b1fb-4a16-90a6-328aeef185e1/w8HrfKFQ3Q.json',
+              height: 250,
+            ),
               const SizedBox(height: 10),
               const Text(
                 'Let\'s create an account',

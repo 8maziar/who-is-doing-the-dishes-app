@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
 import 'task_page.dart';
-import 'package:lottie/lottie.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CompletedChores extends StatefulWidget {
   const CompletedChores({Key? key}) : super(key: key);
@@ -31,7 +31,8 @@ Future<List<String>> getCompletedDocIds() async {
 class _CompletedChoresState extends State<CompletedChores> {
   bool showAnimation = true;
 
-  Future<String> getTaskName(String documentId) async {
+
+Future<String> getTaskName(String documentId) async {
     final taskSnapshot = await FirebaseFirestore.instance
         .collection('chores')
         .doc(documentId)
@@ -45,13 +46,16 @@ class _CompletedChoresState extends State<CompletedChores> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Completed Chores',
-            style:
-                GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.bold)),
+        title: Text(
+          'Completed Chores',
+          style: GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Column(
         children: [
@@ -70,9 +74,14 @@ class _CompletedChoresState extends State<CompletedChores> {
                   final completedDocIDs = snapshot.data ?? [];
                   if (completedDocIDs.isEmpty) {
                     return Center(
-                        child: Text('No completed tasks found.',
-                            style: GoogleFonts.roboto(
-                                fontSize: 24, fontWeight: FontWeight.w400)));
+                      child: Text(
+                        'No completed tasks found.',
+                        style: GoogleFonts.roboto(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    );
                   }
                   return ListView.builder(
                     itemCount: completedDocIDs.length,
@@ -94,34 +103,60 @@ class _CompletedChoresState extends State<CompletedChores> {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
                               final taskName = snapshot.data ?? 'Unknown Task';
-                              return Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: ListTile(
-                                      trailing: const Icon(Icons.check),
-                                      textColor: Colors.white,
-                                      titleTextStyle: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      tileColor: const Color.fromARGB(
-                                          255, 2, 197, 191),
-                                      title: Text(taskName),
-                                    ),
+                              return Card(
+                                color: const Color.fromARGB(255, 2, 197, 191), // Background color for the entire card
+                                child: ExpansionTile(
+                                  title: Row(
+                                    children: [
+                                      Icon(Icons.expand_more, color: Colors.white), // Unfold arrow icon
+                                      SizedBox(width: 8), // Add some spacing
+                                      Text(
+                                        taskName,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(150, 52),
-                                    ),
-                                    child: const Text(
-                                      'Share',
-                                      style: TextStyle(fontSize: 28),
-                                    ),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.share),
                                     onPressed: () async {
-                                      await Share.share(
-                                          'I\'ve done this tasks\n\n$taskName');
+                                      final taskName = await getTaskName(documentId);
+                                      await Share.share('I\'ve done this tasks\n\n$taskName');
                                     },
                                   ),
-                                ],
+                                  children: [
+                                    FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                                      future: FirebaseFirestore.instance
+                                          .collection('chores')
+                                          .doc(documentId)
+                                          .get(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState == ConnectionState.done &&
+                                            snapshot.hasData) {
+                                          final choreData = snapshot.data!.data();
+                                          if (choreData != null) {
+                                            final imageUrl = choreData['image'];
+                                            return Padding(
+                                              padding: const EdgeInsets.all(3.0),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(5.0),
+                                                child: Image.network(
+                                                  imageUrl,
+                                                  height: 150,
+                                                  width: MediaQuery.of(context).size.width,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        }
+                                        return SizedBox.shrink();
+                                      },
+                                    ),
+                                  ],
+                                ),
                               );
                             } else {
                               return const ListTile(
