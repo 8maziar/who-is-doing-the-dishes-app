@@ -121,7 +121,7 @@ Widget build(BuildContext context) {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                backgroundColor: Color.fromARGB(255, 5, 132, 243),
+                backgroundColor: const Color.fromARGB(255, 5, 132, 243),
                 child: const Icon(Icons.check),
               ),
             );
