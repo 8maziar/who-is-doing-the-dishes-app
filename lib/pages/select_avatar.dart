@@ -5,6 +5,8 @@ import 'package:lottie/lottie.dart';
 
 
 class AvatarSelectionPage extends StatefulWidget {
+  const AvatarSelectionPage({super.key});
+
   @override
   _AvatarSelectionPageState createState() => _AvatarSelectionPageState();
 }
@@ -30,7 +32,7 @@ class AvatarSelectionPage extends StatefulWidget {
         Widget build(BuildContext context) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('Select Avatar'),
+              title: const Text('Select Avatar'),
             ),
             body: Center(
               child: Column(
@@ -66,12 +68,12 @@ class AvatarSelectionPage extends StatefulWidget {
                           ),
                       ],
                     ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('Save and Close'),
+                    child: const Text('Save and Close'),
                   ),
                 ],
               ),
