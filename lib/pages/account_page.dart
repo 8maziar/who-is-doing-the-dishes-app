@@ -4,7 +4,8 @@
         import "package:google_fonts/google_fonts.dart";
         import 'package:lottie/lottie.dart';
         import 'select_avatar.dart';
-        import 'dart:io';
+        import 'package:cloud_firestore/cloud_firestore.dart';
+
 
           class AccountPage extends StatefulWidget {
             const AccountPage({super.key});
@@ -15,11 +16,17 @@
 
           class _AccountPageState extends State<AccountPage> {
             bool _showChangeButton = false;
-            File? _selectedImage;
+             String? _avatarUrl;
 
             @override
             void initState() {
               super.initState();
+
+             getUserAvatarUrl().then((avatarUrl) {
+                setState(() {
+                  _avatarUrl = avatarUrl;
+                });
+              });
 
               Future.delayed(Duration(seconds: 1), () {
                 setState(() {
@@ -27,6 +34,21 @@
                 });
               });
             }
+
+
+          Future<String?> getUserAvatarUrl() async {
+            final User? user = FirebaseAuth.instance.currentUser;
+            if (user != null) {
+              DocumentSnapshot<Map<String, dynamic>> userDoc =
+                  await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+
+              if (userDoc.exists) {
+                return userDoc.get('avatar') ?? null;
+              }
+            }
+            return null;
+          }
+
 
             @override
             Widget build(BuildContext context) {
@@ -49,15 +71,16 @@
                           children: [
                             Container(
                               margin: EdgeInsets.only(top: 30.0),
-                              child: _selectedImage != null
-                                  ? Image.file(
-                                      _selectedImage!,
-                                      height: 250,
-                                    )
-                                  : Lottie.network(
-                                      'https://lottie.host/c772a776-15f3-4289-95b9-42267e43b322/Gg7NDzFyfs.json',
-                                      height: 250,
-                                    ),
+                              child: _avatarUrl != null
+                              
+                                        ? Lottie.network(
+                                            _avatarUrl!,
+                                            height: 250,
+                                          )
+                                              :  Lottie.network(
+                                                  'https://lottie.host/c772a776-15f3-4289-95b9-42267e43b322/Gg7NDzFyfs.json',
+                                                  height: 250,
+                                                )
                             ),
                             
                             Padding(
@@ -80,66 +103,34 @@
                                     curve: Curves.easeOut,
                                   )),
                                   child: ElevatedButton(
-                                    onPressed: () async {
-                                      final selectedImage = await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => AvatarSelectionPage(),
-                                        ),
-                                      );
+                                          onPressed: () async {
+                                            final selectedAvatarUrl = await Navigator.push<String?>(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => AvatarSelectionPage(),
+                                              ),
+                                            );
 
-                                      if (selectedImage != null) {
-                                        setState(() {
-                                          _selectedImage = selectedImage;
-                                        });
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue,
-                                    ),
-                                    child: Text(
-                                      'Change',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
+                                            if (selectedAvatarUrl != null) {
+                                              setState(() {
+                                                _avatarUrl = selectedAvatarUrl;
+                                              });
+                                            }
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.blue,
+                                          ),
+                                          child: Text(
+                                            'Change',
+                                            style: TextStyle(color: Colors.white),
+                                          ),
+                                        ),
                                 ),
                               ),
                           ],
                         ),
 
-                     /*  
-                     FRIENDS: 
-                      Positioned(
-                          top: MediaQuery.of(context).size.height / 2 - 30, // Vertically centered
-                          right: 16.0, // Aligned to the right side
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                                          Text(
-                            "Friends:",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                              SizedBox(height: 5, width: 5,),
-                              FloatingActionButton(
-                                onPressed: () {
 
-                                },
-                                child: Lottie.network('https://lottie.host/574176dd-97a5-4a71-8801-c2805e95706d/rZxxNC6sQK.json'),
-                              ),
-                              SizedBox(height: 5, width: 5,),
-                              FloatingActionButton(
-                                onPressed: () {
-
-                                },
-                                child: Lottie.network('https://lottie.host/49128aea-acca-4a50-a6bd-a5e4e98f9925/zAdrGKPK8w.json'),
-                              ),
-
-                            ],
-                          ),
-                        ), */
                         SizedBox(height: 20),
                         const TaskTile(userTask: "Do The Dishes"),
                         SizedBox(height: 10),
