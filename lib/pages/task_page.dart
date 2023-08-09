@@ -40,7 +40,7 @@ Widget build(BuildContext context) {
                 /* final imageUrl = choreData['image']; */
                 final Timestamp deadlineTimestamp = choreData['deadline'] as Timestamp;
                 final DateTime deadlineDateTime = DateTime.fromMillisecondsSinceEpoch(deadlineTimestamp.seconds * 1000 + deadlineTimestamp.nanoseconds ~/ 1000000);
-                final formattedDeadline = DateFormat('dd-MM-yyyy').format(deadlineDateTime.toLocal());
+                final formattedDeadline = DateFormat('y/M/d hh:mm').format(deadlineDateTime.toLocal());
 
                 final List<String> fieldDisplayOrder = ['title', 'priority', 'description', 'weekday', 'deadline'];
                 final orderedFilteredChoreData = fieldDisplayOrder.map((field) {

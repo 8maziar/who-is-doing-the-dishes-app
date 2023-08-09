@@ -116,7 +116,7 @@ class _NewChoreState extends State<NewChore> {
                           labelText: 'Deadline',
                         ),
                         mode: DateTimeFieldPickerMode.dateAndTime,
-                        dateFormat: DateFormat('y/M/d, hh:mm'),
+                        dateFormat: DateFormat('y/M/d hh:mm'),
                         autovalidateMode: AutovalidateMode.always,
                         validator: (value) {
                           if (value == null) {
