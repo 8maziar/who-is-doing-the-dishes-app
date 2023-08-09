@@ -181,7 +181,7 @@ class Calendar extends StatefulWidget {
                 final result = await Navigator.push<bool>(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => NewChore(),
+                    builder: (_) => const NewChore(),
                   ),
                 );
                 if (result ?? false) {
