@@ -29,7 +29,9 @@ class _NewChoreState extends State<NewChore> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('New Task', style: GoogleFonts.roboto(fontSize: 24, fontWeight: FontWeight.bold)),
+          title: Text('New Task',
+              style: GoogleFonts.roboto(
+                  fontSize: 24, fontWeight: FontWeight.bold)),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -116,7 +118,7 @@ class _NewChoreState extends State<NewChore> {
                           labelText: 'Deadline',
                         ),
                         mode: DateTimeFieldPickerMode.dateAndTime,
-                        dateFormat: DateFormat('y/M/d, hh:mm'),
+                        dateFormat: DateFormat('y/M/d hh:mm'),
                         autovalidateMode: AutovalidateMode.always,
                         validator: (value) {
                           if (value == null) {
@@ -160,8 +162,8 @@ class _NewChoreState extends State<NewChore> {
                                     ),
                                     behavior: SnackBarBehavior.floating,
                                     shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0)),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
                                   ),
                                 );
                                 chores
@@ -179,19 +181,26 @@ class _NewChoreState extends State<NewChore> {
                                     )
                                     .catchError((error) => print(error));
 
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const HomePage()));
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(),
+                                  ),
+                                );
                               }
                             },
                             child: const Text("Create Task"),
                           ),
                           const SizedBox(width: 25),
                           ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const HomePage()));
-                              },
-                              child: const Text("Cancel"))
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const HomePage(),
+                                ),
+                              );
+                            },
+                            child: const Text("Cancel"),
+                          )
                         ],
                       )
                     ],

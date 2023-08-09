@@ -7,8 +7,6 @@ import '../components/mytextfield.dart';
 import '../components/squaretile.dart';
 import 'package:lottie/lottie.dart';
 
-
-
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
   const LoginPage({super.key, required this.onTap});
@@ -21,9 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-//user sign in method
   void signUserIn() async {
-// show loading circle
     showDialog(
       context: context,
       builder: (context) {
@@ -33,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
 
-//try sign in
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
@@ -43,13 +38,10 @@ class _LoginPageState extends State<LoginPage> {
       // ignore: use_build_context_synchronously
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      //show err
       showErrorMessage(e.code);
     }
-    //stop the circle
   }
 
-  //wrong email message
   void showErrorMessage(String message) {
     showDialog(
       context: context,
@@ -85,8 +77,9 @@ class _LoginPageState extends State<LoginPage> {
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-                Lottie.network('https://lottie.host/3fd7a22b-0976-4d57-891c-da47734ea964/M5erNgADpI.json', height: 250),
-
+              Lottie.network(
+                  'https://lottie.host/3fd7a22b-0976-4d57-891c-da47734ea964/M5erNgADpI.json',
+                  height: 250),
               const SizedBox(height: 10),
               const Text(
                 'The Dishes?',

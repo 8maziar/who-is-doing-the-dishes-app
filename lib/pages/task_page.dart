@@ -26,7 +26,7 @@ Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
       title: const Text('Chore Details'),
-      backgroundColor: Color.fromARGB(255, 5, 132, 243),
+      backgroundColor: const Color.fromARGB(255, 5, 132, 243),
     ),
     body: Padding(
       padding: const EdgeInsets.all(16.0),
@@ -40,7 +40,7 @@ Widget build(BuildContext context) {
                 final imageUrl = choreData['image'] as String?;
                 final Timestamp deadlineTimestamp = choreData['deadline'] as Timestamp;
                 final DateTime deadlineDateTime = DateTime.fromMillisecondsSinceEpoch(deadlineTimestamp.seconds * 1000 + deadlineTimestamp.nanoseconds ~/ 1000000);
-                final formattedDeadline = DateFormat('dd-MM-yyyy').format(deadlineDateTime.toLocal());
+                final formattedDeadline = DateFormat('y/M/d hh:mm').format(deadlineDateTime.toLocal());
 
                 final List<String> fieldDisplayOrder = ['title', 'priority', 'description', 'weekday', 'deadline', 'assignedTo'];
                 final orderedFilteredChoreData = fieldDisplayOrder.map((field) {
@@ -76,7 +76,7 @@ Widget build(BuildContext context) {
                             child: ListTile(
                               title: Text(
                                 '$key:',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
                               subtitle: key == 'deadline' ? Text(formattedDeadline) : Text(
                                 '$value',
@@ -92,10 +92,10 @@ Widget build(BuildContext context) {
                             ),
                           );
                         }
-                        return SizedBox.shrink();
+                        return const SizedBox.shrink();
                       }).toList(),
-                      SizedBox(height: 16),
-                      Container(
+                      const SizedBox(height: 16),
+                      SizedBox(
                         height: 250,
                         child: Center(
                           child: Lottie.network(
@@ -126,6 +126,8 @@ Widget build(BuildContext context) {
               ),
             );
           }
+
+
 
           void _showUpdateDialog(
               BuildContext context, String key, dynamic currentValue) {

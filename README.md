@@ -1,35 +1,30 @@
 # Who's Doing the Dishes?
 
-1. Project's Title
-
 A project to help get those pesky chores done fairly.
 
+
 ## Project Description:
-
-2. Project Description
-
-What your application does,
-Why you used the technologies you used,
-Some of the challenges you faced and features you hope to implement in the future.
    
-This project uses **Dart** and **Flutter** to create a useful, mobile-friendly application to help users manage their household chores.  After creating an account, users can see their assigned tasks and by when they need completing.  They can also assign tasks to both themselves and other users in the household and can be notified of this via push notifications.  They can see which chores are the most urgent and need completing first and can mark tasks as complete.  They can then share their success with other household users upon completion of tasks.
+This project uses **Dart**, **Flutter** and **Firebase** to create a useful, mobile-friendly application to help users manage their household chores. The user can register through either e-mail or Google sign-in, then, after creating an account using a log-in/authentication process, users can see their assigned tasks and by when they need completing.  They can also assign tasks to both themselves and other users in the household and can be notified of this via push notifications.  They can see which chores are the most urgent and need completing first and can mark tasks as complete, as well as being able to see all users' tasks through use the calendar feature. The user can also delete tasks if required.  They can then share their success with other household users upon completion of tasks along with sharing to other platforms, such as e-mail, SMS, Whatsapp, Facebook, etc.
 
--  **Dart** is a general-purpose programming language that can be used for a wide range of applications, including web development, server-side programming, and mobile app development.  Find out more about Dart here:  [https://dart.dev/](y)
+-  **Dart** is a general-purpose programming language that can be used for a wide range of applications, including web development, server-side programming, and mobile app development.  Find out more about Dart here:  [https://dart.dev/]
 
--  **Flutter** is an open source framework developed and supported by Google. Frontend and full-stack developers use Flutter to build an application's user interface (UI) for multiple platforms with a single codebase.  Find the documentation here:  [https://flutter.dev/](y)
+-  **Flutter** is an open source framework developed and supported by Google. Frontend and full-stack developers use Flutter to build an application's user interface (UI) for multiple platforms with a single codebase.  Find the documentation here:  [https://flutter.dev/]
+
+- **Firebase** is a set of backend cloud computing services and application development platforms provided by Google. It hosts databases, services, authentication, and integration for a variety of applications, including Android, iOS, JavaScript, Node.js, Java, Unity, PHP, and C++.  Find out more about how to initialise and use Firebase here: [https://firebase.google.com/]
 
 
-(What challenges did we face?  Implementing push notifications, getting to grips with and installing new tech stacks (BE/FE) and using these across web/emulators/differing OS, calendar, adding and assigning/editing/deleting chores, using images/animations, authentification, accessibility, etc???)
+**What challenges did we face?**  
 
+Implementing push notifications, getting to grips with and installing new tech stacks (BE/FE) and using these across web/emulators/differing OS, calendar, adding and assigning/editing/deleting chores, using images/animations, authentification, accessibility.
 
-Things to include in the README...
 
 ### How to Install and Run the Project:
 
-3. How to Install and Run the Project
-
--Install desired emulator (Xcode, Android Studio)
-- fork the repo
+- Install Firebase CLI
+- Create a Firebase project
+- Install desired emulator (Xcode, Android Studio)
+- Fork the repo
 - Run flutter doctor
       -Confirm all ticks are green before proceeding (if running in VSCODE ignore the red X for visual studio)
 - Run flutterfire configure:
@@ -37,32 +32,27 @@ Things to include in the README...
       -Select Desired platforms from (IOS, Android, Web, MacOS)
 - Run flutter pub get
 - Select emulator (Android device/IOS device/Chrome)
-- start Debugging (F5)
-
-#### How to Use the Project
-
-4. How to Use the Project
+- Start Debugging (F5)
 
 
-#### Credits:
+#### Roadmap
 
-Stick in your gitHub handles here...
+Futute releases will include:
 
-Alexander Croden
-gitHub username: C43NK0
-
-Mark Lovejoy
-gitHub username: marklovejoydev
-
-5. Include Credits:  
-      if you followed tutorials or referenced a certain material that might help the user to build that particular project, include links to those here as well.
+- Forgot password feature
+- In-built local messaging feature
+- Custom avatar import and selection
+- Points-based system for completing tasks
+- Feature for user-leaderboards, with user setting the time-frame. For example, daily, weekly, monthly leaderboards.
 
 
-##### Licenses:
+##### Authors:
 
-Dunno if we need this or not?
-6. Add a License
-      If you need help choosing a license, use check out this link: https://choosealicense.com/
+Alexander Croden,
+gitHub [https://github.com/C43NK0]
 
+Mark Lovejoy,
+gitHub: [https://github.com/marklovejoydev]
 
-   
+Hersh Thakur,
+github: [https://github.com/HTJoker]
