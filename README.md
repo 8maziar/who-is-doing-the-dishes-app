@@ -2,6 +2,7 @@
 
 A project to help get those pesky chores done fairly.
 
+
 ## Project Description:
    
 This project uses **Dart**, **Flutter** and **Firebase** to create a useful, mobile-friendly application to help users manage their household chores. The user can register through either e-mail or Google sign-in, then, after creating an account using a log-in/authentication process, users can see their assigned tasks and by when they need completing.  They can also assign tasks to both themselves and other users in the household and can be notified of this via push notifications.  They can see which chores are the most urgent and need completing first and can mark tasks as complete, as well as being able to see all users' tasks through use the calendar feature. The user can also delete tasks if required.  They can then share their success with other household users upon completion of tasks along with sharing to other platforms, such as e-mail, SMS, Whatsapp, Facebook, etc.
@@ -17,12 +18,13 @@ This project uses **Dart**, **Flutter** and **Firebase** to create a useful, mob
 
 Implementing push notifications, getting to grips with and installing new tech stacks (BE/FE) and using these across web/emulators/differing OS, calendar, adding and assigning/editing/deleting chores, using images/animations, authentification, accessibility.
 
+
 ### How to Install and Run the Project:
 
 - Install Firebase CLI
 - Create a Firebase project
 - Install desired emulator (Xcode, Android Studio)
-- fork the repo
+- Fork the repo
 - Run flutter doctor
       -Confirm all ticks are green before proceeding (if running in VSCODE ignore the red X for visual studio)
 - Run flutterfire configure:
@@ -30,7 +32,8 @@ Implementing push notifications, getting to grips with and installing new tech s
       -Select Desired platforms from (IOS, Android, Web, MacOS)
 - Run flutter pub get
 - Select emulator (Android device/IOS device/Chrome)
-- start Debugging (F5)
+- Start Debugging (F5)
+
 
 #### Roadmap
 
@@ -42,12 +45,8 @@ Futute releases will include:
 - Points-based system for completing tasks
 - Feature for user-leaderboards, with user setting the time-frame. For example, daily, weekly, monthly leaderboards.
 
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
 
 ##### Authors:
-
-Stick in your gitHub handles here...
 
 Alexander Croden
 gitHub username: C43NK0
