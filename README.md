@@ -28,6 +28,16 @@ Things to include in the README...
 
 3. How to Install and Run the Project
 
+-Install desired emulator (Xcode, Android Studio)
+- fork the repo
+- Run flutter doctor
+      -Confirm all ticks are green before proceeding (if running in VSCODE ignore the red X for visual studio)
+- Run flutterfire configure:
+      -Select Database
+      -Select Desired platforms from (IOS, Android, Web, MacOS)
+- Run flutter pub get
+- Select emulator (Android device/IOS device/Chrome)
+- start Debugging (F5)
 
 #### How to Use the Project
 
@@ -41,6 +51,8 @@ Stick in your gitHub handles here...
 Alexander Croden
 gitHub username: C43NK0
 
+Mark Lovejoy
+gitHub username: marklovejoydev
 
 5. Include Credits:  
       if you followed tutorials or referenced a certain material that might help the user to build that particular project, include links to those here as well.
