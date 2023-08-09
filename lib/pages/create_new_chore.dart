@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
@@ -20,7 +19,7 @@ class _NewChoreState extends State<NewChore> {
   String? taskTitle;
   String? taskDescription;
   String? taskPriority;
-  String? taskDeadline;
+  DateTime? taskDeadline;
   String? taskAssignedto;
 
   @override
@@ -133,7 +132,7 @@ class _NewChoreState extends State<NewChore> {
                           return null;
                         },
                         onDateSelected: (DateTime value) {
-                          taskDeadline = value.toString();
+                          taskDeadline = value;
                         },
                         firstDate: DateTime(DateTime.now().year - 1),
                         lastDate: DateTime(DateTime.now().year + 1),
