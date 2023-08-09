@@ -48,9 +48,9 @@ Futute releases will include:
 
 ##### Authors:
 
-Alexander Croden
-gitHub username: C43NK0
+Alexander Croden,
+gitHub [https://github.com/C43NK0](y)
 
-Mark Lovejoy
-gitHub username: marklovejoydev
+Mark Lovejoy,
+gitHub: [https://github.com/marklovejoydev](y)
 
