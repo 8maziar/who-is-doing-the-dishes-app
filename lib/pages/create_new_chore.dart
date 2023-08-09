@@ -20,7 +20,7 @@ class _NewChoreState extends State<NewChore> {
   String? taskTitle;
   String? taskDescription;
   String? taskPriority;
-  String? taskDeadline;
+  DateTime? taskDeadline;
   String? taskAssignedto;
 
   @override
@@ -117,7 +117,7 @@ class _NewChoreState extends State<NewChore> {
                           labelText: 'Deadline',
                         ),
                         mode: DateTimeFieldPickerMode.dateAndTime,
-                        dateFormat: DateFormat('y/M/d, hh:mm'),
+                        dateFormat: DateFormat('y/M/d hh:mm'),
                         autovalidateMode: AutovalidateMode.always,
                         validator: (value) {
                           if (value == null) {
@@ -133,7 +133,7 @@ class _NewChoreState extends State<NewChore> {
                           return null;
                         },
                         onDateSelected: (DateTime value) {
-                          taskDeadline = value.toString();
+                          taskDeadline = value;
                         },
                         firstDate: DateTime(DateTime.now().year - 1),
                         lastDate: DateTime(DateTime.now().year + 1),
