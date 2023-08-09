@@ -31,8 +31,7 @@ Future<List<String>> getCompletedDocIds() async {
 class _CompletedChoresState extends State<CompletedChores> {
   bool showAnimation = true;
 
-
-Future<String> getTaskName(String documentId) async {
+  Future<String> getTaskName(String documentId) async {
     final taskSnapshot = await FirebaseFirestore.instance
         .collection('chores')
         .doc(documentId)
@@ -45,8 +44,6 @@ Future<String> getTaskName(String documentId) async {
       return 'Unknown Task';
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -104,15 +101,19 @@ Future<String> getTaskName(String documentId) async {
                                 ConnectionState.done) {
                               final taskName = snapshot.data ?? 'Unknown Task';
                               return Card(
-                                color: const Color.fromARGB(255, 2, 197, 191), // Background color for the entire card
+                                color: const Color.fromARGB(255, 2, 197,
+                                    191), // Background color for the entire card
                                 child: ExpansionTile(
                                   title: Row(
                                     children: [
-                                      Icon(Icons.expand_more, color: Colors.white), // Unfold arrow icon
-                                      SizedBox(width: 8), // Add some spacing
+                                      const Icon(Icons.expand_more,
+                                          color: Colors
+                                              .white), // Unfold arrow icon
+                                      const SizedBox(
+                                          width: 8), // Add some spacing
                                       Text(
                                         taskName,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,
                                         ),
@@ -120,39 +121,48 @@ Future<String> getTaskName(String documentId) async {
                                     ],
                                   ),
                                   trailing: IconButton(
-                                    icon: Icon(Icons.share),
+                                    icon: const Icon(Icons.share),
                                     onPressed: () async {
-                                      final taskName = await getTaskName(documentId);
-                                      await Share.share('I\'ve done this tasks\n\n$taskName');
+                                      final taskName =
+                                          await getTaskName(documentId);
+                                      await Share.share(
+                                          'I\'ve done this tasks\n\n$taskName');
                                     },
                                   ),
                                   children: [
-                                    FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                                    FutureBuilder<
+                                        DocumentSnapshot<Map<String, dynamic>>>(
                                       future: FirebaseFirestore.instance
                                           .collection('chores')
                                           .doc(documentId)
                                           .get(),
                                       builder: (context, snapshot) {
-                                        if (snapshot.connectionState == ConnectionState.done &&
+                                        if (snapshot.connectionState ==
+                                                ConnectionState.done &&
                                             snapshot.hasData) {
-                                          final choreData = snapshot.data!.data();
+                                          final choreData =
+                                              snapshot.data!.data();
                                           if (choreData != null) {
                                             final imageUrl = choreData['image'];
                                             return Padding(
-                                              padding: const EdgeInsets.all(3.0),
+                                              padding:
+                                                  const EdgeInsets.all(3.0),
                                               child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(5.0),
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
                                                 child: Image.network(
                                                   imageUrl,
                                                   height: 150,
-                                                  width: MediaQuery.of(context).size.width,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
                                             );
                                           }
                                         }
-                                        return SizedBox.shrink();
+                                        return const SizedBox.shrink();
                                       },
                                     ),
                                   ],

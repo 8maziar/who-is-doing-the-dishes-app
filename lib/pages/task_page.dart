@@ -26,7 +26,7 @@ Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
       title: const Text('Chore Details'),
-      backgroundColor: Color.fromARGB(255, 5, 132, 243),
+      backgroundColor: const Color.fromARGB(255, 5, 132, 243),
     ),
     body: Padding(
       padding: const EdgeInsets.all(16.0),
@@ -77,7 +77,7 @@ Widget build(BuildContext context) {
                             child: ListTile(
                               title: Text(
                                 '$key:',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
                               subtitle: key == 'deadline' ? Text(formattedDeadline) : Text(
                                 '$value',
@@ -93,10 +93,10 @@ Widget build(BuildContext context) {
                             ),
                           );
                         }
-                        return SizedBox.shrink();
+                        return const SizedBox.shrink();
                       }).toList(),
-                      SizedBox(height: 16),
-                      Container(
+                      const SizedBox(height: 16),
+                      SizedBox(
                         height: 250,
                         child: Center(
                           child: Lottie.network(
@@ -122,7 +122,7 @@ Widget build(BuildContext context) {
       onPressed: () {
         Navigator.of(context).pop();
       },
-      backgroundColor: Color.fromARGB(255, 5, 132, 243),
+      backgroundColor: const Color.fromARGB(255, 5, 132, 243),
       child: const Icon(Icons.check),
     ),
   );
