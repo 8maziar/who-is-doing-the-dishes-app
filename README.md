@@ -59,3 +59,8 @@ gitHub: [https://github.com/HTJoker]
 
 Mohammed Benguitoun,
 gitHub: [https://github.com/benguimo] 
+
+
+##### Screenshots:
+
+![Screenshot 2023-08-21 120043](https://github.com/8maziar/who-is-doing-the-dishes-app/assets/123082520/23fbaedd-e3cb-48c7-83e9-e5a6b01c1c1c)
