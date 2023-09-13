@@ -39,7 +39,7 @@ class _AccountPageState extends State<AccountPage> {
           .doc(user.uid)
           .get();
       if (userDoc.exists) {
-        return userDoc.get('avatar') ?? null;
+        return userDoc.get('avatar');
       }
     }
     return null;
